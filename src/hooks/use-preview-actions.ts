@@ -26,8 +26,8 @@ export const usePreviewActions = ({
 
   const handlePrint = async () => {
     if (!data || data.length === 0) {
-      toast.error("Aucune donnée à imprimer", {
-        description: "Veuillez vérifier vos filtres ou sélectionner une autre période."
+      toast.error("No data to print", {
+        description: "Please check your filters or select another period."
       });
       return;
     }
@@ -37,15 +37,15 @@ export const usePreviewActions = ({
     try {
       await printModuleData(moduleName, {
         columns: columns,
-        title: title || `Aperçu - ${moduleName}`
+        title: title || `Preview - ${moduleName}`
       });
-      toast.success("Document envoyé à l'impression", {
-        description: "Votre document a été envoyé à l'imprimante."
+      toast.success("Document sent to printer", {
+        description: "Your document has been sent to the printer."
       });
     } catch (error) {
-      console.error("Erreur lors de l'impression:", error);
-      toast.error("Erreur d'impression", {
-        description: "Une erreur s'est produite lors de l'impression du document."
+      console.error("Print error:", error);
+      toast.error("Print error", {
+        description: "An error occurred while printing the document."
       });
     } finally {
       setIsActionInProgress(false);
@@ -54,8 +54,8 @@ export const usePreviewActions = ({
 
   const handleShowPreview = () => {
     if (!data || data.length === 0) {
-      toast.error("Aucune donnée à afficher", {
-        description: "Veuillez vérifier vos filtres ou sélectionner une autre période."
+      toast.error("No data to display", {
+        description: "Please check your filters or select another period."
       });
       return;
     }
@@ -67,8 +67,8 @@ export const usePreviewActions = ({
 
   const handleExportPDF = async () => {
     if (!data || data.length === 0) {
-      toast.error("Aucune donnée à exporter", {
-        description: "Veuillez vérifier vos filtres ou sélectionner une autre période."
+      toast.error("No data to export", {
+        description: "Please check your filters or select another period."
       });
       return;
     }
@@ -76,17 +76,14 @@ export const usePreviewActions = ({
     setIsActionInProgress(true);
     
     try {
-      await exportModuleData(moduleName, 'pdf', data, {
-        title: title || `Rapport - ${moduleName}`,
-        columns: columns
-      });
-      toast.success("PDF généré avec succès", {
-        description: "Le document a été téléchargé."
+      await exportModuleData(moduleName, 'pdf', data);
+      toast.success("PDF generated successfully", {
+        description: "The document has been downloaded."
       });
     } catch (error) {
-      console.error("Erreur lors de la génération du PDF:", error);
-      toast.error("Erreur d'exportation", {
-        description: "Une erreur s'est produite lors de la génération du PDF."
+      console.error("PDF generation error:", error);
+      toast.error("Export error", {
+        description: "An error occurred while generating the PDF."
       });
     } finally {
       setIsActionInProgress(false);

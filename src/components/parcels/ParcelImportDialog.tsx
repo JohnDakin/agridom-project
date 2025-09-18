@@ -15,27 +15,27 @@ const ParcelImportDialog = ({ isOpen, onOpenChange, onImportConfirm }: ParcelImp
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Importer des données</DialogTitle>
+          <DialogTitle>Import Data</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
-          <p className="text-muted-foreground">Choisissez le type de données à importer:</p>
+          <p className="text-muted-foreground">Choose the type of data to import:</p>
           <div className="grid grid-cols-1 gap-2">
             <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('parcellaires')}>
               <Map className="h-4 w-4 mr-2" />
-              Données parcellaires (CSV)
+              Parcel Data (CSV)
             </Button>
             <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('géospatiales')}>
               <Calendar className="h-4 w-4 mr-2" />
-              Données géospatiales (GeoJSON)
+              Geospatial Data (GeoJSON)
             </Button>
             <Button variant="outline" className="justify-start" onClick={() => onImportConfirm('de cultures')}>
               <Filter className="h-4 w-4 mr-2" />
-              Historique des cultures (Excel)
+              Crop History (Excel)
             </Button>
           </div>
           <div className="flex justify-end">
             <Button variant="ghost" onClick={() => onOpenChange(false)}>
-              Annuler
+              Cancel
             </Button>
           </div>
         </div>

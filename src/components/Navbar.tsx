@@ -53,14 +53,14 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { title: 'Tableau de bord', path: '/', icon: Home },
-    { title: 'Parcelles', path: '/parcelles', icon: MapPin },
-    { title: 'Cultures', path: '/cultures', icon: Sprout },
-    { title: 'Inventaire', path: '/inventaire', icon: Package },
-    { title: 'Finances', path: '/finances', icon: Wallet },
-    { title: 'Statistiques', path: '/statistiques', icon: BarChart2 },
-    { title: 'Rapports', path: '/rapports', icon: FileText },
-    { title: 'Paramètres', path: '/parametres', icon: Settings },
+    { title: 'Dashboard', path: '/', icon: Home },
+    { title: 'Parcels', path: '/parcelles', icon: MapPin },
+    { title: 'Crops', path: '/cultures', icon: Sprout },
+    { title: 'Inventory', path: '/inventaire', icon: Package },
+    { title: 'Finance', path: '/finances', icon: Wallet },
+    { title: 'Statistics', path: '/statistiques', icon: BarChart2 },
+    { title: 'Reports', path: '/rapports', icon: FileText },
+    { title: 'Settings', path: '/parametres', icon: Settings },
   ];
 
   const isActive = (path: string) => {
@@ -133,7 +133,7 @@ const Navbar = () => {
               <span className="text-sm font-medium">AD</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">Utilisateur</p>
+              <p className="text-sm font-medium truncate">User</p>
               <p className="text-xs text-muted-foreground truncate">agriculteur@example.com</p>
             </div>
           </div>
