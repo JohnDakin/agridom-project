@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [userName, setUserName] = useState('Exploitant');
+  const [userName, setUserName] = useState('Farmer');
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   
@@ -41,7 +41,7 @@ const Index = () => {
               onClick={syncDataAcrossCRM}
             >
               <RefreshCw className={`h-4 w-4 text-gray-600 ${isRefreshing ? 'animate-spin' : ''}`} />
-              Synchroniser
+              Sync
             </Button>
             <Button
               variant="outline"
@@ -49,7 +49,7 @@ const Index = () => {
               onClick={() => handleExportData('dashboard')}
             >
               <Download className="h-4 w-4 text-gray-600" />
-              Exporter
+              Export
             </Button>
             <Button
               variant="outline"
@@ -57,7 +57,7 @@ const Index = () => {
               onClick={() => handleImportData()}
             >
               <Upload className="h-4 w-4 text-gray-600" />
-              Importer
+              Import
             </Button>
             <Button
               variant="outline"
@@ -65,7 +65,7 @@ const Index = () => {
               onClick={() => handlePrintData('dashboard')}
             >
               <Printer className="h-4 w-4 text-gray-600" />
-              Imprimer
+              Print
             </Button>
           </div>
         );
@@ -78,7 +78,7 @@ const Index = () => {
               onClick={() => handleExportData('harvest')}
             >
               <Download className="h-4 w-4 text-gray-600" />
-              Exporter
+              Export
             </Button>
             <Button
               variant="outline"
@@ -86,7 +86,7 @@ const Index = () => {
               onClick={() => handlePrintData('harvest')}
             >
               <Printer className="h-4 w-4 text-gray-600" />
-              Imprimer
+              Print
             </Button>
           </div>
         );
@@ -99,14 +99,14 @@ const Index = () => {
               onClick={() => handleExportData('weather')}
             >
               <Download className="h-4 w-4 text-gray-600" />
-              Exporter
+              Export
             </Button>
             <Button 
               variant="outline" 
               className="flex items-center gap-2 bg-white border-gray-200 hover:bg-gray-50"
             >
               <Filter className="h-4 w-4 text-gray-600" />
-              Configurer
+              Configure
             </Button>
           </div>
         );
@@ -117,7 +117,7 @@ const Index = () => {
               className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white"
             >
               <PlusCircle className="h-4 w-4" />
-              Ajouter
+              Add
             </Button>
             <Button
               variant="outline"
@@ -125,7 +125,7 @@ const Index = () => {
               onClick={() => handleExportData('tasks')}
             >
               <Download className="h-4 w-4 text-gray-600" />
-              Exporter
+              Export
             </Button>
             <Button
               variant="outline"
@@ -133,7 +133,7 @@ const Index = () => {
               onClick={() => handlePrintData('tasks')}
             >
               <Printer className="h-4 w-4 text-gray-600" />
-              Imprimer
+              Print
             </Button>
           </div>
         );
@@ -144,24 +144,24 @@ const Index = () => {
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);
-    console.log(`Changement d'onglet vers: ${value}`);
+    console.log(`Tab change to: ${value}`);
   };
 
   // Manipulations des données
   const handleExportData = async (tab: string) => {
     const moduleMapping: {[key: string]: string} = {
-      'dashboard': 'statistiques',
-      'harvest': 'cultures',
-      'weather': 'statistiques',
-      'tasks': 'cultures'
+      'dashboard': 'statistics',
+      'harvest': 'crops',
+      'weather': 'statistics',
+      'tasks': 'crops'
     };
     
-    const module = moduleMapping[tab] || 'statistiques';
+    const module = moduleMapping[tab] || 'statistics';
     const format = tab === 'dashboard' ? 'excel' : 'csv';
     
     try {
       await exportModuleData(module, format as 'csv' | 'excel' | 'pdf');
-      console.log(`Export des données ${module} au format ${format} lancé`);
+      console.log(`Export of ${module} data in ${format} format launched`);
     } catch (error) {
       console.error(`Error exporting ${module}:`, error);
     }
@@ -173,22 +173,22 @@ const Index = () => {
 
   const handleImportConfirm = async () => {
     if (!selectedFile) {
-      console.error("Aucun fichier sélectionné");
+      console.error("No file selected");
       return;
     }
     
     const moduleMapping = {
-      'dashboard': 'statistiques',
-      'harvest': 'cultures',
-      'weather': 'statistiques',
-      'tasks': 'cultures'
+      'dashboard': 'statistics',
+      'harvest': 'crops',
+      'weather': 'statistics',
+      'tasks': 'crops'
     };
     
-    const module = moduleMapping[activeTab] || 'statistiques';
+    const module = moduleMapping[activeTab] || 'statistics';
     
     try {
       await importModuleData(module, selectedFile);
-      console.log(`Importation du fichier ${selectedFile.name} réussie`);
+      console.log(`Import of file ${selectedFile.name} successful`);
     } catch (error) {
       console.error(`Error importing ${module}:`, error);
     }
@@ -199,17 +199,17 @@ const Index = () => {
 
   const handlePrintData = async (tab: string) => {
     const moduleMapping = {
-      'dashboard': 'statistiques',
-      'harvest': 'cultures',
-      'weather': 'statistiques',
-      'tasks': 'cultures'
+      'dashboard': 'statistics',
+      'harvest': 'crops',
+      'weather': 'statistics',
+      'tasks': 'crops'
     };
     
-    const module = moduleMapping[tab] || 'statistiques';
+    const module = moduleMapping[tab] || 'statistics';
     
     try {
       await printModuleData(module);
-      console.log(`Impression des données ${module} lancée`);
+      console.log(`Print of ${module} data launched`);
     } catch (error) {
       console.error(`Error printing ${module}:`, error);
     }
@@ -218,22 +218,22 @@ const Index = () => {
   const tabs: TabItem[] = [
     {
       value: 'dashboard',
-      label: 'Tableau de Bord',
+      label: 'Dashboard',
       content: <Dashboard />
     },
     {
       value: 'harvest',
-      label: 'Suivi des Récoltes',
+      label: 'Harvest Tracking',
       content: <GuadeloupeHarvestTracking />
     },
     {
       value: 'weather',
-      label: 'Alertes Météo',
+      label: 'Weather Alerts',
       content: <GuadeloupeWeatherAlerts />
     },
     {
       value: 'tasks',
-      label: 'Tâches',
+      label: 'Tasks',
       content: <TaskList />
     }
   ];
@@ -244,9 +244,9 @@ const Index = () => {
         <div className="p-6 animate-enter">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-gray-800">Tableau de Bord Agri Dom</h1>
+              <h1 className="text-3xl font-bold text-gray-800">Agri Dom Dashboard</h1>
               <p className="text-gray-500">
-                Bienvenue, {userName} | Dernière synchronisation: {lastSync.toLocaleTimeString()}
+                Welcome, {userName} | Last sync: {lastSync.toLocaleTimeString()}
               </p>
             </div>
             {getTabActions()}
@@ -261,11 +261,11 @@ const Index = () => {
           <Dialog open={importDialogOpen} onOpenChange={setImportDialogOpen}>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle>Importer des données</DialogTitle>
+                <DialogTitle>Import Data</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="file">Fichier CSV</Label>
+                  <Label htmlFor="file">CSV File</Label>
                   <input 
                     type="file" 
                     id="file" 
@@ -275,13 +275,13 @@ const Index = () => {
                   />
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Les données seront importées dans le module courant. 
-                  Assurez-vous que le fichier est au format CSV.
+                  Data will be imported into the current module. 
+                  Make sure the file is in CSV format.
                 </p>
               </div>
               <DialogFooter>
-                <Button variant="outline" onClick={() => setImportDialogOpen(false)}>Annuler</Button>
-                <Button onClick={handleImportConfirm}>Importer</Button>
+                <Button variant="outline" onClick={() => setImportDialogOpen(false)}>Cancel</Button>
+                <Button onClick={handleImportConfirm}>Import</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

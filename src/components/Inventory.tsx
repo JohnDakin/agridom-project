@@ -494,10 +494,10 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
     : [];
 
   const inventoryColumns: Column[] = [
-    { id: 'name', header: 'Article', accessorKey: 'name', isEditable: true },
-    { id: 'category', header: 'Catégorie', accessorKey: 'category', isEditable: true },
-    { id: 'quantity', header: 'Quantité', accessorKey: 'quantity', type: 'number', isEditable: true },
-    { id: 'price', header: 'Prix unitaire', accessorKey: 'price', type: 'number', isEditable: true },
+    { id: 'name', header: 'Item', accessorKey: 'name', isEditable: true },
+    { id: 'category', header: 'Category', accessorKey: 'category', isEditable: true },
+    { id: 'quantity', header: 'Quantity', accessorKey: 'quantity', type: 'number', isEditable: true },
+    { id: 'price', header: 'Unit Price', accessorKey: 'price', type: 'number', isEditable: true },
     { id: 'value', header: 'Valeur totale', accessorKey: 'value', type: 'text', isEditable: false },
     { id: 'status', header: 'Statut', accessorKey: 'status', type: 'text', isEditable: false },
   ];
@@ -528,8 +528,8 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
     <div className="animate-enter">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Gestion des Stocks</h1>
-          <p className="text-muted-foreground">Gérez votre inventaire et suivez les niveaux de stock</p>
+          <h1 className="text-2xl font-bold mb-1">Stock Management</h1>
+          <p className="text-muted-foreground">Manage your inventory and track stock levels</p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Button 
@@ -537,7 +537,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
             onClick={() => setView('list')}
             className="px-4 py-2"
           >
-            Liste
+            List
           </Button>
           <Button 
             variant={view === 'stats' ? 'default' : 'outline'}
@@ -577,7 +577,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
             className="ml-2"
           >
             <Plus className="mr-2 h-4 w-4" />
-            Ajouter un article
+            Add Item
           </Button>
         </div>
       </header>
@@ -918,7 +918,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
             {showAddForm && (
               <div className="border rounded-xl p-6 bg-muted/5 animate-enter">
                 <div className="flex justify-between items-center mb-4">
-                  <h3 className="text-lg font-medium">Ajouter un nouvel article</h3>
+                  <h3 className="text-lg font-medium">Add New Item</h3>
                   <Button 
                     variant="ghost" 
                     size="sm" 
@@ -929,7 +929,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="name">Nom de l'article*</Label>
+                    <Label htmlFor="name">Item Name*</Label>
                     <Input
                       id="name"
                       value={newItem.name}
@@ -957,7 +957,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                     </datalist>
                   </div>
                   <div>
-                    <Label htmlFor="quantity">Quantité initiale*</Label>
+                    <Label htmlFor="quantity">Initial Quantity*</Label>
                     <div className="flex mt-1">
                       <Input
                         id="quantity"
@@ -1028,7 +1028,7 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                   </Button>
                   <Button onClick={handleAddItem}>
                     <Plus className="mr-2 h-4 w-4" />
-                    Ajouter l'article
+                    Add Item
                   </Button>
                 </div>
               </div>
@@ -1044,9 +1044,9 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
 
       <ConfirmDialog 
         open={deleteConfirmOpen} 
-        title="Supprimer l'article" 
-        description="Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible."
-        confirmText="Supprimer"
+        title="Delete Item" 
+        description="Are you sure you want to delete this item? This action is irreversible."
+        confirmText="Delete"
         cancelText="Annuler"
         onConfirm={handleDeleteItem}
         onOpenChange={() => setDeleteConfirmOpen(false)}
@@ -1054,9 +1054,9 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
 
       <ConfirmDialog 
         open={transactionDeleteConfirmOpen} 
-        title="Supprimer la transaction" 
-        description="Êtes-vous sûr de vouloir supprimer cette transaction ? Le stock sera ajusté en conséquence."
-        confirmText="Supprimer"
+        title="Delete Transaction" 
+        description="Are you sure you want to delete this transaction? The stock will be adjusted accordingly."
+        confirmText="Delete"
         cancelText="Annuler"
         onConfirm={handleDeleteTransaction}
         onOpenChange={() => setTransactionDeleteConfirmOpen(false)}
