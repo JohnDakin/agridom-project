@@ -40,7 +40,7 @@ const transactionSchema = z.object({
 const FinancialTracking = () => {
   // State for editable content
   const [title, setTitle] = useState('Suivi Financier');
-  const [description, setDescription] = useState('Gérez vos revenus et dépenses pour optimiser la rentabilité de votre exploitation');
+  const [description, setDescription] = useState('Manage your income and expenses to optimize your farm profitability');
   
   // State for transactions
   const [transactions, setTransactions] = useState([
@@ -121,13 +121,13 @@ const FinancialTracking = () => {
     setShowAddDialog(false);
     form.reset();
     
-    toast.success('Transaction ajoutée avec succès');
+    toast.success('Transaction added successfully');
   };
   
   // Handle delete transaction
   const handleDeleteTransaction = (id: number) => {
     setTransactions(transactions.filter(t => t.id !== id));
-    toast.success('Transaction supprimée');
+    toast.success('Transaction deleted');
   };
   
   // Handle edit transaction
@@ -135,7 +135,7 @@ const FinancialTracking = () => {
     setTransactions(transactions.map(t => 
       t.id === id ? { ...t, [field]: field === 'amount' ? parseFloat(value) : value } : t
     ));
-    toast.success('Transaction mise à jour');
+    toast.success('Transaction updated');
   };
   
   // Export to CSV
@@ -254,8 +254,8 @@ const FinancialTracking = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Card className="bg-white">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Revenus</CardTitle>
-            <CardDescription>Total des entrées</CardDescription>
+            <CardTitle className="text-lg">Income</CardTitle>
+            <CardDescription>Total revenue</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-green-600">{totalIncome.toFixed(2)} €</p>
@@ -264,8 +264,8 @@ const FinancialTracking = () => {
         
         <Card className="bg-white">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Dépenses</CardTitle>
-            <CardDescription>Total des sorties</CardDescription>
+            <CardTitle className="text-lg">Expenses</CardTitle>
+            <CardDescription>Total expenses</CardDescription>
           </CardHeader>
           <CardContent>
             <p className="text-2xl font-bold text-red-600">{totalExpenses.toFixed(2)} €</p>
@@ -274,8 +274,8 @@ const FinancialTracking = () => {
         
         <Card className="bg-white">
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg">Solde</CardTitle>
-            <CardDescription>Revenus - Dépenses</CardDescription>
+            <CardTitle className="text-lg">Balance</CardTitle>
+            <CardDescription>Income - Expenses</CardDescription>
           </CardHeader>
           <CardContent>
             <p className={`text-2xl font-bold ${balance >= 0 ? 'text-green-600' : 'text-red-600'}`}>
@@ -288,7 +288,7 @@ const FinancialTracking = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="bg-white">
           <CardHeader>
-            <CardTitle>Aperçu Mensuel</CardTitle>
+            <CardTitle>Monthly Overview</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="h-80">
@@ -301,11 +301,11 @@ const FinancialTracking = () => {
                   <XAxis dataKey="name" />
                   <YAxis />
                   <Tooltip 
-                    formatter={(value) => [`${value} €`, '']} 
-                    labelFormatter={(label) => `Mois: ${label}`}
+                   formatter={(value) => [`${value} €`, '']} 
+                    labelFormatter={(label) => `Month: ${label}`}
                   />
-                  <Bar name="Revenus" dataKey="income" fill="#4ade80" radius={[4, 4, 0, 0]} />
-                  <Bar name="Dépenses" dataKey="expenses" fill="#f87171" radius={[4, 4, 0, 0]} />
+                  <Bar name="Income" dataKey="income" fill="#4ade80" radius={[4, 4, 0, 0]} />
+                  <Bar name="Expenses" dataKey="expenses" fill="#f87171" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -314,7 +314,7 @@ const FinancialTracking = () => {
         
         <Card className="bg-white">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>Transactions Récentes</CardTitle>
+            <CardTitle>Recent Transactions</CardTitle>
             <div className="flex gap-2">
               <Button 
                 variant="outline" 
@@ -322,7 +322,7 @@ const FinancialTracking = () => {
                 onClick={exportToCSV}
               >
                 <Download className="h-4 w-4 mr-1" />
-                Exporter
+                Export
               </Button>
               <Button 
                 variant="outline" 
@@ -330,14 +330,14 @@ const FinancialTracking = () => {
                 onClick={printTransactions}
               >
                 <Printer className="h-4 w-4 mr-1" />
-                Imprimer
+                Print
               </Button>
               <Button 
                 onClick={() => setShowAddDialog(true)}
                 size="sm"
               >
                 <PlusCircle className="h-4 w-4 mr-1" />
-                Ajouter
+                Add
               </Button>
             </div>
           </CardHeader>
@@ -348,9 +348,9 @@ const FinancialTracking = () => {
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
               >
-                <option value="all">Tous types</option>
-                <option value="income">Revenus</option>
-                <option value="expense">Dépenses</option>
+                <option value="all">All Types</option>
+                <option value="income">Income</option>
+                <option value="expense">Expenses</option>
               </select>
               
               <select
@@ -360,7 +360,7 @@ const FinancialTracking = () => {
               >
                 {categories.map(cat => (
                   <option key={cat} value={cat}>
-                    {cat === 'all' ? 'Toutes catégories' : cat}
+                    {cat === 'all' ? 'All Categories' : cat}
                   </option>
                 ))}
               </select>
@@ -374,10 +374,10 @@ const FinancialTracking = () => {
                   setSortOrder(order as 'asc' | 'desc');
                 }}
               >
-                <option value="date-desc">Date (récent)</option>
-                <option value="date-asc">Date (ancien)</option>
-                <option value="amount-desc">Montant (haut)</option>
-                <option value="amount-asc">Montant (bas)</option>
+                <option value="date-desc">Date (recent)</option>
+                <option value="date-asc">Date (oldest)</option>
+                <option value="amount-desc">Amount (high)</option>
+                <option value="amount-asc">Amount (low)</option>
               </select>
             </div>
             
@@ -438,7 +438,7 @@ const FinancialTracking = () => {
                   </div>
                 ))
               ) : (
-                <p className="text-center text-muted-foreground py-8">Aucune transaction trouvée</p>
+                <p className="text-center text-muted-foreground py-8">No transactions found</p>
               )}
             </div>
           </CardContent>

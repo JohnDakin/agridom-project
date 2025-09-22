@@ -286,7 +286,7 @@ const ParcelManagement = () => {
       setParcels(parcels.map(p => p.id === updatedParcel.id ? updatedParcel : p));
       setSelectedParcel(updatedParcel);
       setIsEditing(false);
-      toast.success('Parcelle mise à jour');
+      toast.success('Parcel updated');
     }
   };
 
@@ -330,7 +330,7 @@ const ParcelManagement = () => {
     if (selectedParcel?.id === id) {
       setSelectedParcel(null);
     }
-    toast.success('Parcelle supprimée');
+    toast.success('Parcel deleted');
   };
 
   const handleAddParcel = () => {
@@ -361,7 +361,7 @@ const ParcelManagement = () => {
       coordinates: { lat: 45.4390, lng: 4.3885 }
     });
     setShowAddParcelForm(false);
-    toast.success('Nouvelle parcelle créée');
+    toast.success('New parcel created');
   };
 
   const handleNewParcelInputChange = (field: keyof ParcelData, value: string | number) => {

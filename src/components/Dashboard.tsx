@@ -123,23 +123,23 @@ const Dashboard = () => {
   // Handle changes
   const handleTitleChange = (value: string | number) => {
     setTitle(String(value));
-    toast.success('Titre mis à jour');
+    toast.success('Title updated');
   };
   
   const handleDescriptionChange = (value: string | number) => {
     setDescription(String(value));
-    toast.success('Description mise à jour');
+    toast.success('Description updated');
   };
   
   const handleMonthChange = (value: string | number) => {
     setCurrentMonth(String(value));
-    toast.success('Mois mis à jour');
+    toast.success('Month updated');
   };
   
   // Stat card updates
   const handleRevenueChange = (value: string | number) => {
     setMonthlyRevenue(Number(value));
-    toast.success('Revenu mensuel mis à jour');
+    toast.success('Monthly revenue updated');
   };
   
   const handleRevenueGrowthChange = (value: string | number) => {
@@ -149,7 +149,7 @@ const Dashboard = () => {
   
   const handleAreaChange = (value: string | number) => {
     setCultivatedArea(Number(value));
-    toast.success('Superficie cultivée mise à jour');
+    toast.success('Cultivated area updated');
   };
   
   const handleParcelsCountChange = (value: string | number) => {
@@ -183,12 +183,12 @@ const Dashboard = () => {
       task.id === taskId ? { ...task, title: editedTaskTitle } : task
     ));
     setEditingTask(null);
-    toast.success('Tâche mise à jour');
+    toast.success('Task updated');
   };
   
   const handleDeleteTask = (taskId: number) => {
     setUpcomingTasks(upcomingTasks.filter(task => task.id !== taskId));
-    toast.success('Tâche supprimée');
+    toast.success('Task deleted');
   };
   
   // Alert management

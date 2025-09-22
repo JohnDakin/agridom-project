@@ -37,9 +37,9 @@ const ChartFilters = ({
     setPeriod('year');
     setCropFilter('all');
     if (setSearchTerm) setSearchTerm('');
-    console.log("Filtres réinitialisés - Affichage de toutes les cultures sur une période annuelle");
-    toast.info("Filtres réinitialisés", {
-      description: "Affichage de toutes les cultures sur une période annuelle"
+    console.log("Filters reset - Displaying all crops over an annual period");
+    toast.info("Filters reset", {
+      description: "Displaying all crops over an annual period"
     });
   };
   
@@ -57,13 +57,13 @@ const ChartFilters = ({
       >
         <SelectTrigger className="w-[140px]">
           <Calendar className="h-4 w-4 mr-2 text-muted-foreground" />
-          <SelectValue placeholder="Période" />
+          <SelectValue placeholder="Period" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="year">Annuel</SelectItem>
-          <SelectItem value="month">Mensuel</SelectItem>
-          <SelectItem value="week">Hebdomadaire</SelectItem>
-          <SelectItem value="day">Journalier</SelectItem>
+          <SelectItem value="year">Annual</SelectItem>
+          <SelectItem value="month">Monthly</SelectItem>
+          <SelectItem value="week">Weekly</SelectItem>
+          <SelectItem value="day">Daily</SelectItem>
         </SelectContent>
       </Select>
 
@@ -73,15 +73,15 @@ const ChartFilters = ({
       >
         <SelectTrigger className="w-[160px]">
           <Filter className="h-4 w-4 mr-2 text-muted-foreground" />
-          <SelectValue placeholder="Culture" />
+          <SelectValue placeholder="Crop" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Toutes cultures</SelectItem>
-          <SelectItem value="Canne à Sucre">Canne à Sucre</SelectItem>
-          <SelectItem value="Banane">Banane</SelectItem>
-          <SelectItem value="Ananas">Ananas</SelectItem>
-          <SelectItem value="Igname">Igname</SelectItem>
-          <SelectItem value="Madère">Madère</SelectItem>
+          <SelectItem value="all">All Crops</SelectItem>
+          <SelectItem value="Canne à Sucre">Sugar Cane</SelectItem>
+          <SelectItem value="Banane">Banana</SelectItem>
+          <SelectItem value="Ananas">Pineapple</SelectItem>
+          <SelectItem value="Igname">Yam</SelectItem>
+          <SelectItem value="Madère">Madeira</SelectItem>
         </SelectContent>
       </Select>
 
@@ -89,7 +89,7 @@ const ChartFilters = ({
         <div className="relative">
           <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Rechercher..."
+            placeholder="Search..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-8 w-[200px]"
@@ -99,7 +99,7 @@ const ChartFilters = ({
 
       {filterCount > 0 && (
         <Badge variant="outline" className="bg-muted">
-          {filterCount} filtre{filterCount > 1 ? 's' : ''} actif{filterCount > 1 ? 's' : ''}
+          {filterCount} active filter{filterCount > 1 ? 's' : ''}
         </Badge>
       )}
 
@@ -112,7 +112,7 @@ const ChartFilters = ({
             className="flex items-center gap-1"
           >
             <Download className="h-3.5 w-3.5" />
-            Exporter
+            Export
           </Button>
         )}
         
@@ -123,7 +123,7 @@ const ChartFilters = ({
           className="flex items-center gap-1"
         >
           <RefreshCcw className="h-3.5 w-3.5" />
-          Réinitialiser
+          Reset
         </Button>
       </div>
     </div>

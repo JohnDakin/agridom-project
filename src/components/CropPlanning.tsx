@@ -302,7 +302,7 @@ const CropPlanning = () => {
   const handleDeleteCrop = (id: number) => {
     setCropsData(cropsData.filter(crop => crop.id !== id));
     setCropTasks(cropTasks.filter(task => task.cropId !== id));
-    toast.success('Culture supprimée avec succès');
+    toast.success('Crop deleted successfully');
   };
 
   const handleSaveCrop = () => {
@@ -310,7 +310,7 @@ const CropPlanning = () => {
       setCropsData(cropsData.map(crop => 
         crop.id === editingCrop.id ? editingCrop : crop
       ));
-      toast.success('Culture mise à jour avec succès');
+      toast.success('Crop updated successfully');
     } else if (newCrop.name && newCrop.parcel) {
       const newId = Math.max(0, ...cropsData.map(c => c.id)) + 1;
       setCropsData([...cropsData, { 
@@ -323,9 +323,9 @@ const CropPlanning = () => {
         status: newCrop.status as CropStatus || 'planned',
         area: newCrop.area || 0
       } as CropData]);
-      toast.success('Nouvelle culture ajoutée');
+      toast.success('New crop added');
     } else {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+      toast.error('Please fill in all required fields');
       return;
     }
     setShowCropForm(false);
@@ -333,7 +333,7 @@ const CropPlanning = () => {
 
   const handleSaveTask = () => {
     if (!newTask.title || !newTask.cropId) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+      toast.error('Please fill in all required fields');
       return;
     }
 
@@ -349,7 +349,7 @@ const CropPlanning = () => {
 
     setCropTasks([...cropTasks, taskToAdd]);
     setShowTaskForm(false);
-    toast.success('Nouvelle tâche ajoutée');
+    toast.success('New task added');
   };
 
   const handleTaskUpdate = (index: number, field: string, value: any) => {
@@ -362,7 +362,7 @@ const CropPlanning = () => {
     const updatedTasks = [...cropTasks];
     updatedTasks.splice(index, 1);
     setCropTasks(updatedTasks);
-    toast.success('Tâche supprimée');
+    toast.success('Task deleted');
   };
 
   const taskColumns: Column[] = [
@@ -396,8 +396,8 @@ const CropPlanning = () => {
     <div className="p-6 animate-enter">
       <header className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold mb-1">Planification des Cultures Guadeloupéennes</h1>
-          <p className="text-muted-foreground">Gérez les cultures locales et planifiez vos activités agricoles</p>
+          <h1 className="text-2xl font-bold mb-1">Guadeloupean Crop Planning</h1>
+          <p className="text-muted-foreground">Manage local crops and plan your agricultural activities</p>
         </div>
         <div className="flex space-x-2">
           <button 
@@ -408,7 +408,7 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('list')}
           >
-            Liste
+            List
           </button>
           <button 
             className={`px-4 py-2 rounded-lg transition-colors ${
@@ -418,14 +418,14 @@ const CropPlanning = () => {
             }`}
             onClick={() => setCurrentView('calendar')}
           >
-            Calendrier
+            Calendar
           </button>
           <button 
             className="inline-flex items-center justify-center px-4 py-2 bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark transition-colors whitespace-nowrap ml-2"
             onClick={() => setShowTaskForm(true)}
           >
             <Plus className="h-4 w-4 mr-2" />
-            Nouvelle tâche
+            New Task
           </button>
         </div>
       </header>
@@ -437,7 +437,7 @@ const CropPlanning = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <input 
                 type="text" 
-                placeholder="Rechercher une culture..." 
+                placeholder="Search for a crop..." 
                 className="pl-10 pr-4 py-2 w-full border border-input rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -448,7 +448,7 @@ const CropPlanning = () => {
               onClick={handleAddCrop}
             >
               <Plus className="h-4 w-4 mr-2" />
-              Ajouter une culture
+              Add Crop
             </button>
           </div>
 
@@ -465,12 +465,12 @@ const CropPlanning = () => {
 
           <div className="mt-8 border rounded-xl p-6 bg-white">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Tâches à venir</h2>
+              <h2 className="text-xl font-semibold">Upcoming Tasks</h2>
               <button 
                 className="text-sm text-agri-primary hover:underline"
                 onClick={() => setShowTaskForm(true)}
               >
-                Ajouter une tâche
+                Add Task
               </button>
             </div>
             
@@ -478,10 +478,10 @@ const CropPlanning = () => {
               <table className="w-full text-sm">
                 <thead className="text-xs uppercase bg-muted">
                   <tr>
-                    <th className="px-4 py-2 text-left">Tâche</th>
-                    <th className="px-4 py-2 text-left">Culture</th>
+                    <th className="px-4 py-2 text-left">Task</th>
+                    <th className="px-4 py-2 text-left">Crop</th>
                     <th className="px-4 py-2 text-left">Date</th>
-                    <th className="px-4 py-2 text-left">Priorité</th>
+                    <th className="px-4 py-2 text-left">Priority</th>
                     <th className="px-4 py-2 text-left">Actions</th>
                   </tr>
                 </thead>
