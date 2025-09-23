@@ -22,8 +22,8 @@ const ParcelsPage = () => {
     handleTitleChange, 
     handleDescriptionChange 
   } = usePageMetadata({
-    defaultTitle: 'Gestion des Parcelles',
-    defaultDescription: 'Gérez, organisez et optimisez toutes vos parcelles agricoles'
+    defaultTitle: 'Parcel Management',
+    defaultDescription: 'Manage, organize and optimize all your agricultural parcels'
   });
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,20 +44,20 @@ const ParcelsPage = () => {
   });
   
   const [activeParcelAlerts, setActiveParcelAlerts] = useState([
-    { id: 1, parcel: 'Parcelle A12', type: 'Pluie intense', severity: 'Haute' },
-    { id: 2, parcel: 'Parcelle B05', type: 'Sécheresse', severity: 'Moyenne' }
+    { id: 1, parcel: 'Parcel A12', type: 'Heavy Rain', severity: 'High' },
+    { id: 2, parcel: 'Parcel B05', type: 'Drought', severity: 'Medium' }
   ]);
 
-  // Simuler la synchronisation des données avec les autres modules
+  // Simulate data synchronization with other modules
   useEffect(() => {
     const syncWithOtherModules = () => {
-      console.log("Synchronisation des données avec les modules de cultures et de statistiques");
+      console.log("Synchronizing data with crops and statistics modules");
       
-      // Simule un délai de synchronisation
+      // Simulate synchronization delay
       const timer = setTimeout(() => {
         setLastSyncDate(new Date());
         syncDataAcrossCRM();
-        console.log("Les données des parcelles sont maintenant synchronisées avec tous les modules");
+        console.log("Parcel data is now synchronized with all modules");
       }, 1500);
       
       return () => clearTimeout(timer);
@@ -67,8 +67,8 @@ const ParcelsPage = () => {
   }, [syncDataAcrossCRM]);
 
   const handleExportData = () => {
-    console.log("L'export de toutes les données des parcelles a démarré");
-    console.log("Les données exportées sont maintenant disponibles dans le module Statistiques");
+    console.log("Export of all parcel data has started");
+    console.log("Exported data is now available in the Statistics module");
   };
 
   const handleImportData = () => {
@@ -77,26 +77,26 @@ const ParcelsPage = () => {
   
   const handleImportConfirm = (importType: string) => {
     setImportDialogOpen(false);
-    console.log(`Les données ${importType} ont été importées avec succès`);
-    console.log("Les modules Cultures et Statistiques ont été mis à jour avec les nouvelles données");
+    console.log(`${importType} data has been imported successfully`);
+    console.log("Crops and Statistics modules have been updated with new data");
   };
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm) {
-      console.log(`Recherche effectuée pour "${searchTerm}"`);
+      console.log(`Search performed for "${searchTerm}"`);
     }
   };
   
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'Basse':
+      case 'Low':
         return 'bg-green-100 text-green-800';
-      case 'Moyenne':
+      case 'Medium':
         return 'bg-yellow-100 text-yellow-800';
-      case 'Haute':
+      case 'High':
         return 'bg-orange-100 text-orange-800';
-      case 'Extrême':
+      case 'Extreme':
         return 'bg-red-100 text-red-800';
       default:
         return 'bg-gray-100 text-gray-800';
@@ -105,22 +105,22 @@ const ParcelsPage = () => {
 
   const toggleView = () => {
     setShowGuadeloupeView(!showGuadeloupeView);
-    console.log(`Vue ${showGuadeloupeView ? 'Standard' : 'Guadeloupe'} activée`);
-    console.log(`Les données affichées dans les modules Cultures et Finances ont été adaptées`);
+    console.log(`${showGuadeloupeView ? 'Standard' : 'Guadeloupe'} view activated`);
+    console.log(`Data displayed in Crops and Finance modules has been adapted`);
   };
 
   const handleGenerateStatistics = () => {
     setStatsDialogOpen(true);
-    console.log("Les statistiques de vos parcelles ont été générées");
+    console.log("Your parcel statistics have been generated");
   };
 
   const handleOpenLayerManager = () => {
     setLayersDialogOpen(true);
-    console.log("Gestionnaire de couches ouvert");
+    console.log("Layer manager opened");
   };
 
   const handleAddParcel = () => {
-    console.log("Formulaire de création de parcelle ouvert");
+    console.log("Parcel creation form opened");
   };
 
   return (
@@ -135,7 +135,7 @@ const ParcelsPage = () => {
               onDescriptionChange={handleDescriptionChange}
             />
             <p className="text-xs text-muted-foreground mt-1">
-              Dernière synchronisation avec les autres modules: {lastSyncDate.toLocaleString()}
+              Last synchronization with other modules: {lastSyncDate.toLocaleString()}
             </p>
           </div>
           
@@ -171,7 +171,7 @@ const ParcelsPage = () => {
               className="inline-flex items-center px-4 py-2 border border-input bg-white rounded-lg hover:bg-muted/30 transition-colors"
               onClick={toggleView}
             >
-              {showGuadeloupeView ? 'Vue Standard' : 'Vue Guadeloupe'}
+              {showGuadeloupeView ? 'Standard View' : 'Guadeloupe View'}
             </button>
           </div>
         </div>
@@ -184,24 +184,24 @@ const ParcelsPage = () => {
         >
           <div className="flex items-center mb-2">
             <FileSpreadsheet className="h-5 w-5 mr-2 text-agri-primary" />
-            <h2 className="text-lg font-medium">Aperçu des statistiques parcellaires</h2>
+            <h2 className="text-lg font-medium">Parcel Statistics Overview</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
-              <p className="text-sm text-muted-foreground">Surface totale</p>
+              <p className="text-sm text-muted-foreground">Total Area</p>
               <p className="text-2xl font-semibold">128.5 ha</p>
             </div>
             <div className="p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
-              <p className="text-sm text-muted-foreground">Parcelles actives</p>
+              <p className="text-sm text-muted-foreground">Active Parcels</p>
               <p className="text-2xl font-semibold">42</p>
             </div>
             <div className="p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
-              <p className="text-sm text-muted-foreground">Rendement moyen</p>
+              <p className="text-sm text-muted-foreground">Average Yield</p>
               <p className="text-2xl font-semibold">7.2 t/ha</p>
             </div>
             <div className="p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
-              <p className="text-sm text-muted-foreground">Cultures principales</p>
-              <p className="text-xl font-semibold">Maïs, Blé, Colza</p>
+              <p className="text-sm text-muted-foreground">Main Crops</p>
+              <p className="text-xl font-semibold">Corn, Wheat, Rapeseed</p>
             </div>
           </div>
         </motion.div>

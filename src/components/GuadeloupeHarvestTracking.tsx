@@ -18,8 +18,8 @@ interface HarvestData {
 
 const GuadeloupeHarvestTracking = () => {
   const { yieldData } = useStatistics();
-  const [title, setTitle] = useState('Suivi des Récoltes en Guadeloupe');
-  const [description, setDescription] = useState('Suivez les rendements et la qualité des récoltes pour les principales cultures guadeloupéennes');
+  const [title, setTitle] = useState('Guadeloupe Harvest Tracking');
+  const [description, setDescription] = useState('Track yields and quality of harvests for main Guadeloupean crops');
   
   // Convertir les données de rendement pour les adapter au format attendu
   const [harvestData, setHarvestData] = useState<HarvestData[]>(
@@ -39,12 +39,12 @@ const GuadeloupeHarvestTracking = () => {
   
   // Colonnes pour le tableau éditable
   const columns: Column[] = [
-    { id: 'crop', header: 'Culture', accessorKey: 'crop', isEditable: true },
-    { id: 'currentYield', header: 'Rendement actuel', accessorKey: 'currentYield', type: 'number', isEditable: true },
-    { id: 'previousYield', header: 'Rendement précédent', accessorKey: 'previousYield', type: 'number', isEditable: true },
-    { id: 'unit', header: 'Unité', accessorKey: 'unit', isEditable: true },
-    { id: 'harvestArea', header: 'Surface (ha)', accessorKey: 'harvestArea', type: 'number', isEditable: true },
-    { id: 'quality', header: 'Qualité', accessorKey: 'quality', isEditable: true }
+    { id: 'crop', header: 'Crop', accessorKey: 'crop', isEditable: true },
+    { id: 'currentYield', header: 'Current Yield', accessorKey: 'currentYield', type: 'number', isEditable: true },
+    { id: 'previousYield', header: 'Previous Yield', accessorKey: 'previousYield', type: 'number', isEditable: true },
+    { id: 'unit', header: 'Unit', accessorKey: 'unit', isEditable: true },
+    { id: 'harvestArea', header: 'Area (ha)', accessorKey: 'harvestArea', type: 'number', isEditable: true },
+    { id: 'quality', header: 'Quality', accessorKey: 'quality', isEditable: true }
   ];
   
   // Handlers
@@ -68,14 +68,14 @@ const GuadeloupeHarvestTracking = () => {
     
     newData[rowIndex] = updatedRow as HarvestData;
     setHarvestData(newData);
-    console.log('Données de récolte mises à jour');
+    console.log('Harvest data updated');
   };
   
   const handleDeleteRow = (rowIndex: number) => {
     const newData = [...harvestData];
     newData.splice(rowIndex, 1);
     setHarvestData(newData);
-    console.log('Culture supprimée du suivi');
+    console.log('Crop removed from tracking');
   };
   
   const handleAddRow = (newRow: Record<string, any>) => {
@@ -88,36 +88,36 @@ const GuadeloupeHarvestTracking = () => {
       quality: (newRow.quality as HarvestData['quality']) || 'Moyenne'
     };
     setHarvestData([...harvestData, typedRow]);
-    console.log('Nouvelle culture ajoutée au suivi');
+    console.log('New crop added to tracking');
   };
   
   // Données pour le graphique comparatif
   const chartData = harvestData.map(item => ({
     name: item.crop,
-    actuel: item.currentYield,
-    précédent: item.previousYield,
-    différence: item.currentYield - item.previousYield,
-    unité: item.unit
+    current: item.currentYield,
+    previous: item.previousYield,
+    difference: item.currentYield - item.previousYield,
+    unit: item.unit
   }));
 
   // Prepare data for preview/print
   const printData = harvestData.map(item => ({
-    culture: item.crop,
-    rendement_actuel: `${item.currentYield} ${item.unit}`,
-    rendement_precedent: `${item.previousYield} ${item.unit}`,
-    surface: `${item.harvestArea} ha`,
-    qualite: item.quality,
+    crop: item.crop,
+    current_yield: `${item.currentYield} ${item.unit}`,
+    previous_yield: `${item.previousYield} ${item.unit}`,
+    area: `${item.harvestArea} ha`,
+    quality: item.quality,
     evolution: `${item.currentYield > item.previousYield ? '+' : ''}${(item.currentYield - item.previousYield)} ${item.unit}`
   }));
   
   // Columns for preview/print
   const printColumns = [
-    { key: "culture", header: "Culture" },
-    { key: "rendement_actuel", header: "Rendement actuel" },
-    { key: "rendement_precedent", header: "Rendement précédent" },
-    { key: "surface", header: "Surface (ha)" },
-    { key: "qualite", header: "Qualité" },
-    { key: "evolution", header: "Évolution" }
+    { key: "crop", header: "Crop" },
+    { key: "current_yield", header: "Current Yield" },
+    { key: "previous_yield", header: "Previous Yield" },
+    { key: "area", header: "Area (ha)" },
+    { key: "quality", header: "Quality" },
+    { key: "evolution", header: "Evolution" }
   ];
   
   return (
@@ -162,15 +162,15 @@ const GuadeloupeHarvestTracking = () => {
               <YAxis />
               <Tooltip 
                 formatter={(value, name, props) => {
-                  if (name === 'différence') {
-                    return [`${Number(value) > 0 ? '+' : ''}${value} ${props.payload.unité}`, 'Évolution'];
+                  if (name === 'difference') {
+                    return [`${Number(value) > 0 ? '+' : ''}${value} ${props.payload.unit}`, 'Evolution'];
                   }
-                  return [`${value} ${props.payload.unité}`, name];
+                  return [`${value} ${props.payload.unit}`, name];
                 }}
               />
               <Legend />
-              <Bar name="Rendement actuel" dataKey="actuel" fill="#4CAF50" />
-              <Bar name="Rendement précédent" dataKey="précédent" fill="#8D6E63" />
+              <Bar name="Current Yield" dataKey="current" fill="#4CAF50" />
+              <Bar name="Previous Yield" dataKey="previous" fill="#8D6E63" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -197,7 +197,7 @@ const GuadeloupeHarvestTracking = () => {
                   <span>{isPositive ? '+' : ''}{change} {item.unit} ({isPositive ? '+' : ''}{changePercent}%)</span>
                 </div>
                 <div className="mt-2 text-xs text-muted-foreground">
-                  Qualité: <span className="font-medium">{item.quality}</span>
+                  Quality: <span className="font-medium">{item.quality}</span>
                 </div>
               </div>
             );

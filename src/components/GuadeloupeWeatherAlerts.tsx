@@ -29,30 +29,30 @@ import * as z from "zod";
 interface WeatherAlert {
   id: number;
   date: string;
-  type: 'Pluie intense' | 'Tempête tropicale' | 'Sécheresse' | 'Chaleur excessive' | 'Inondation';
+  type: 'Heavy Rain' | 'Tropical Storm' | 'Drought' | 'Excessive Heat' | 'Flood';
   region: string;
-  severity: 'Basse' | 'Moyenne' | 'Haute' | 'Extrême';
-  impactCrops: 'Faible' | 'Modéré' | 'Sévère';
+  severity: 'Low' | 'Medium' | 'High' | 'Extreme';
+  impactCrops: 'Light' | 'Moderate' | 'Severe';
   description: string;
   recommendation: string;
-  status: 'Active' | 'Terminée' | 'Prévue';
+  status: 'Active' | 'Completed' | 'Scheduled';
 }
 
 const alertFormSchema = z.object({
-  date: z.string().min(1, { message: "La date est requise" }),
-  type: z.enum(['Pluie intense', 'Tempête tropicale', 'Sécheresse', 'Chaleur excessive', 'Inondation']),
-  region: z.string().min(1, { message: "La région est requise" }),
-  severity: z.enum(['Basse', 'Moyenne', 'Haute', 'Extrême']),
-  impactCrops: z.enum(['Faible', 'Modéré', 'Sévère']),
-  description: z.string().min(5, { message: "Description trop courte" }),
-  recommendation: z.string().min(5, { message: "Recommandation trop courte" }),
-  status: z.enum(['Active', 'Terminée', 'Prévue']),
+  date: z.string().min(1, { message: "Date is required" }),
+  type: z.enum(['Heavy Rain', 'Tropical Storm', 'Drought', 'Excessive Heat', 'Flood']),
+  region: z.string().min(1, { message: "Region is required" }),
+  severity: z.enum(['Low', 'Medium', 'High', 'Extreme']),
+  impactCrops: z.enum(['Light', 'Moderate', 'Severe']),
+  description: z.string().min(5, { message: "Description too short" }),
+  recommendation: z.string().min(5, { message: "Recommendation too short" }),
+  status: z.enum(['Active', 'Completed', 'Scheduled']),
 });
 
 const GuadeloupeWeatherAlerts = () => {
   const { toast } = useToast();
-  const [title, setTitle] = useState('Alertes Météorologiques en Guadeloupe');
-  const [description, setDescription] = useState('Suivez les alertes météo impactant les cultures et préparez vos actions préventives');
+  const [title, setTitle] = useState('Weather Alerts in Guadeloupe');
+  const [description, setDescription] = useState('Track weather alerts affecting crops and prepare preventive actions');
   const [searchTerm, setSearchTerm] = useState('');
   const [filterSeverity, setFilterSeverity] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
@@ -63,10 +63,10 @@ const GuadeloupeWeatherAlerts = () => {
     resolver: zodResolver(alertFormSchema),
     defaultValues: {
       date: new Date().toISOString().slice(0, 10),
-      type: 'Pluie intense',
+      type: 'Heavy Rain',
       region: 'Basse-Terre',
-      severity: 'Moyenne',
-      impactCrops: 'Modéré',
+      severity: 'Medium',
+      impactCrops: 'Moderate',
       description: '',
       recommendation: '',
       status: 'Active',
@@ -77,57 +77,57 @@ const GuadeloupeWeatherAlerts = () => {
     {
       id: 1,
       date: '2024-06-15',
-      type: 'Pluie intense',
+      type: 'Heavy Rain',
       region: 'Basse-Terre',
-      severity: 'Haute',
-      impactCrops: 'Modéré',
-      description: 'Fortes précipitations attendues durant 48 heures avec risque d\'inondation dans les zones de basse altitude.',
-      recommendation: 'Vérifier le drainage des parcelles et protéger les jeunes plants. Suspendre temporairement l\'irrigation.',
+      severity: 'High',
+      impactCrops: 'Moderate',
+      description: 'Heavy rainfall expected for 48 hours with flood risk in low-lying areas.',
+      recommendation: 'Check field drainage and protect young plants. Temporarily suspend irrigation.',
       status: 'Active'
     },
     {
       id: 2,
       date: '2024-06-20',
-      type: 'Tempête tropicale',
+      type: 'Tropical Storm',
       region: 'Grande-Terre',
-      severity: 'Extrême',
-      impactCrops: 'Sévère',
-      description: 'Tempête tropicale Emily approchant avec des vents pouvant dépasser 120 km/h et fortes précipitations.',
-      recommendation: 'Récolter préventivement les cultures matures. Renforcer les tuteurs des bananiers. Sécuriser les équipements agricoles.',
-      status: 'Prévue'
+      severity: 'Extreme',
+      impactCrops: 'Severe',
+      description: 'Tropical storm Emily approaching with winds exceeding 120 km/h and heavy rainfall.',
+      recommendation: 'Harvest mature crops preventively. Reinforce banana plant supports. Secure agricultural equipment.',
+      status: 'Scheduled'
     },
     {
       id: 3,
       date: '2024-05-25',
-      type: 'Sécheresse',
+      type: 'Drought',
       region: 'Grande-Terre',
-      severity: 'Moyenne',
-      impactCrops: 'Modéré',
-      description: 'Période prolongée sans précipitations significatives causant un stress hydrique pour certaines cultures.',
-      recommendation: 'Prioriser l\'irrigation des cultures sensibles. Utiliser du paillage pour conserver l\'humidité du sol.',
-      status: 'Terminée'
+      severity: 'Medium',
+      impactCrops: 'Moderate',
+      description: 'Extended period without significant rainfall causing water stress for some crops.',
+      recommendation: 'Prioritize irrigation for sensitive crops. Use mulching to conserve soil moisture.',
+      status: 'Completed'
     },
     {
       id: 4,
       date: '2024-07-05',
-      type: 'Chaleur excessive',
+      type: 'Excessive Heat',
       region: 'Les Saintes',
-      severity: 'Moyenne',
-      impactCrops: 'Modéré',
-      description: 'Vague de chaleur avec températures dépassant 35°C pendant plusieurs jours consécutifs.',
-      recommendation: 'Ombrager les cultures sensibles. Augmenter la fréquence d\'irrigation, de préférence tôt le matin ou tard le soir.',
-      status: 'Prévue'
+      severity: 'Medium',
+      impactCrops: 'Moderate',
+      description: 'Heat wave with temperatures exceeding 35°C for several consecutive days.',
+      recommendation: 'Shade sensitive crops. Increase irrigation frequency, preferably early morning or late evening.',
+      status: 'Scheduled'
     },
     {
       id: 5,
       date: '2024-06-10',
-      type: 'Inondation',
+      type: 'Flood',
       region: 'Basse-Terre',
-      severity: 'Haute',
-      impactCrops: 'Sévère',
-      description: 'Débordement des rivières suite aux pluies intenses des derniers jours affectant les parcelles en zone basse.',
-      recommendation: 'Évacuer les cultures pouvant être récoltées. Préparer les demandes d\'indemnisation. Surveiller les maladies fongiques.',
-      status: 'Terminée'
+      severity: 'High',
+      impactCrops: 'Severe',
+      description: 'River overflow following recent heavy rains affecting low-lying plots.',
+      recommendation: 'Evacuate harvestable crops. Prepare compensation claims. Monitor fungal diseases.',
+      status: 'Completed'
     }
   ]);
   
@@ -576,8 +576,8 @@ const GuadeloupeWeatherAlerts = () => {
                     </div>
                     <div className="mt-4">
                       <h4 className="text-sm font-semibold mb-1">Impact sur les cultures</h4>
-                      <Badge className={alert.impactCrops === 'Sévère' ? 'bg-red-100 text-red-800' : 
-                                      alert.impactCrops === 'Modéré' ? 'bg-yellow-100 text-yellow-800' : 
+                      <Badge className={alert.impactCrops === 'Severe' ? 'bg-red-100 text-red-800' : 
+                                      alert.impactCrops === 'Moderate' ? 'bg-yellow-100 text-yellow-800' : 
                                       'bg-green-100 text-green-800'}>
                         {alert.impactCrops}
                       </Badge>

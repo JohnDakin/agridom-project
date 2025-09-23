@@ -31,19 +31,19 @@ const Statistics = () => {
   
   const getChartTitle = () => {
     switch (currentChart) {
-      case 'yields': return 'Évolution des rendements';
-      case 'financial': return 'Analyse financière';
-      case 'environmental': return 'Indicateurs environnementaux';
-      default: return 'Statistiques';
+      case 'yields': return 'Yield Evolution';
+      case 'financial': return 'Financial Analysis';
+      case 'environmental': return 'Environmental Indicators';
+      default: return 'Statistics';
     }
   };
   
   const getChartDescription = () => {
     switch (currentChart) {
-      case 'yields': return 'Évolution des rendements par culture au fil des années';
-      case 'financial': return 'Analyse détaillée des performances financières';
-      case 'environmental': return 'Suivi des indicateurs de performance environnementale';
-      default: return 'Données statistiques de votre exploitation';
+      case 'yields': return 'Evolution of yields by crop over the years';
+      case 'financial': return 'Detailed analysis of financial performance';
+      case 'environmental': return 'Monitoring environmental performance indicators';
+      default: return 'Statistical data from your farm';
     }
   };
 
@@ -72,25 +72,25 @@ const Statistics = () => {
     switch (currentChart) {
       case 'yields':
         return [
-          { key: "name", header: "Culture" },
-          { key: "current", header: "Rendement actuel" },
-          { key: "previous", header: "Rendement précédent" },
-          { key: "unit", header: "Unité" }
+          { key: "name", header: "Crop" },
+          { key: "current", header: "Current Yield" },
+          { key: "previous", header: "Previous Yield" },
+          { key: "unit", header: "Unit" }
         ];
       case 'financial':
         return [
-          { key: "name", header: "Parcelle" },
-          { key: "profitability", header: "Rentabilité (€)" },
-          { key: "size", header: "Surface (ha)" },
-          { key: "crop", header: "Culture" }
+          { key: "name", header: "Parcel" },
+          { key: "profitability", header: "Profitability (€)" },
+          { key: "size", header: "Area (ha)" },
+          { key: "crop", header: "Crop" }
         ];
       case 'environmental':
         return [
-          { key: "indicator", header: "Indicateur" },
-          { key: "current", header: "Valeur actuelle" },
-          { key: "target", header: "Objectif" },
-          { key: "trend", header: "Tendance" },
-          { key: "status", header: "Statut" }
+          { key: "indicator", header: "Indicator" },
+          { key: "current", header: "Current Value" },
+          { key: "target", header: "Target" },
+          { key: "trend", header: "Trend" },
+          { key: "status", header: "Status" }
         ];
       default:
         return [];
@@ -99,7 +99,7 @@ const Statistics = () => {
   
   // Handle export for the chart filters
   const handleExportData = async () => {
-    console.log(`Exportation des données ${currentChart} en cours...`);
+    console.log(`Exporting ${currentChart} data in progress...`);
   };
   
   return (
@@ -110,13 +110,13 @@ const Statistics = () => {
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/">Tableau de bord</Link>
+              <Link to="/">Dashboard</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/statistiques">Statistiques</Link>
+              <Link to="/statistiques">Statistics</Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
@@ -173,7 +173,7 @@ const Statistics = () => {
           >
             <Link to="/">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Retour au tableau de bord
+              Back to Dashboard
             </Link>
           </Button>
           
@@ -183,7 +183,7 @@ const Statistics = () => {
             asChild
           >
             <Link to="/rapports">
-              Voir tous les rapports
+              View All Reports
               <ChevronRight className="h-4 w-4 ml-2" />
             </Link>
           </Button>

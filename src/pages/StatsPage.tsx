@@ -19,24 +19,24 @@ interface PerformanceData {
 }
 
 const StatsPage = () => {
-  const [pageTitle, setPageTitle] = useState('Statistiques et Analyses');
-  const [pageDescription, setPageDescription] = useState('Visualisez et analysez les données de votre exploitation en Guadeloupe');
+  const [pageTitle, setPageTitle] = useState('Statistics and Analysis');
+  const [pageDescription, setPageDescription] = useState('Visualize and analyze your Guadeloupe farm data');
   const [activeView, setActiveView] = useState<'performance' | 'harvest' | 'detailed'>('performance');
   const [lastSyncDate, setLastSyncDate] = useState<Date>(new Date());
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [connectedModules, setConnectedModules] = useState<string[]>(['parcelles', 'cultures', 'finances']);
   
   const [performanceData, setPerformanceData] = useState<PerformanceData[]>([
-    { name: 'Rendement Canne à Sucre', current: 75, target: 85, unit: 't/ha' },
-    { name: 'Qualité Banane Export', current: 88, target: 95, unit: '%' },
-    { name: 'Rentabilité Ananas', current: 70, target: 80, unit: '%' },
-    { name: 'Certification Bio', current: 25, target: 40, unit: '%' },
-    { name: 'Innovation Igname', current: 60, target: 75, unit: '%' },
+    { name: 'Sugar Cane Yield', current: 75, target: 85, unit: 't/ha' },
+    { name: 'Export Banana Quality', current: 88, target: 95, unit: '%' },
+    { name: 'Pineapple Profitability', current: 70, target: 80, unit: '%' },
+    { name: 'Organic Certification', current: 25, target: 40, unit: '%' },
+    { name: 'Yam Innovation', current: 60, target: 75, unit: '%' },
   ]);
   
   useEffect(() => {
     const initialSync = setTimeout(() => {
-      console.log('Les modules Parcelles, Cultures et Finances sont maintenant connectés aux statistiques');
+      console.log('Parcels, Crops and Finance modules are now connected to statistics');
     }, 1000);
     
     return () => clearTimeout(initialSync);
@@ -44,21 +44,21 @@ const StatsPage = () => {
   
   const syncData = () => {
     setIsSyncing(true);
-    console.log('Récupération des dernières données depuis tous les modules connectés...');
+    console.log('Retrieving latest data from all connected modules...');
     
     setTimeout(() => {
       setIsSyncing(false);
       setLastSyncDate(new Date());
-      console.log('Toutes les statistiques sont à jour avec les dernières données des modules');
-      console.log("Les indicateurs de performance ont été recalculés avec les dernières données");
+      console.log('All statistics are up to date with the latest module data');
+      console.log("Performance indicators have been recalculated with the latest data");
     }, 2000);
   };
   
   const columns: Column[] = [
-    { id: 'name', header: 'Indicateur', accessorKey: 'name', isEditable: true },
-    { id: 'current', header: 'Valeur actuelle', accessorKey: 'current', type: 'number', isEditable: true },
-    { id: 'target', header: 'Objectif', accessorKey: 'target', type: 'number', isEditable: true },
-    { id: 'unit', header: 'Unité', accessorKey: 'unit', isEditable: true },
+    { id: 'name', header: 'Indicator', accessorKey: 'name', isEditable: true },
+    { id: 'current', header: 'Current Value', accessorKey: 'current', type: 'number', isEditable: true },
+    { id: 'target', header: 'Target', accessorKey: 'target', type: 'number', isEditable: true },
+    { id: 'unit', header: 'Unit', accessorKey: 'unit', isEditable: true },
   ];
   
   const handleTableUpdate = (rowIndex: number, columnId: string, value: any) => {
@@ -74,8 +74,8 @@ const StatsPage = () => {
     newData[rowIndex] = updatedRow;
     setPerformanceData(newData);
     
-    console.log(`L'indicateur ${updatedRow.name} a été mis à jour avec succès.`);
-    console.log(`Les modules connectés ont été informés de la mise à jour de ${updatedRow.name}`);
+    console.log(`Indicator ${updatedRow.name} has been updated successfully.`);
+    console.log(`Connected modules have been informed of the update to ${updatedRow.name}`);
   };
   
   const handleDeleteRow = (rowIndex: number) => {
@@ -84,8 +84,8 @@ const StatsPage = () => {
     newData.splice(rowIndex, 1);
     setPerformanceData(newData);
     
-    console.log(`L'indicateur ${deletedItem.name} a été supprimé avec succès.`);
-    console.log(`Les modules connectés ont été informés de la suppression de ${deletedItem.name}`);
+    console.log(`Indicator ${deletedItem.name} has been deleted successfully.`);
+    console.log(`Connected modules have been informed of the deletion of ${deletedItem.name}`);
   };
   
   const handleAddRow = (newRow: Record<string, any>) => {
@@ -97,18 +97,18 @@ const StatsPage = () => {
     };
     setPerformanceData([...performanceData, typedRow]);
     
-    console.log(`L'indicateur ${typedRow.name} a été ajouté avec succès.`);
-    console.log(`Les modules connectés ont été informés de l'ajout de ${typedRow.name}`);
+    console.log(`Indicator ${typedRow.name} has been added successfully.`);
+    console.log(`Connected modules have been informed of the addition of ${typedRow.name}`);
   };
 
   const handleTitleChange = (value: string | number) => {
     setPageTitle(String(value));
-    console.log('Le titre de la page a été mis à jour.');
+    console.log('Page title has been updated.');
   };
 
   const handleDescriptionChange = (value: string | number) => {
     setPageDescription(String(value));
-    console.log('La description de la page a été mise à jour.');
+    console.log('Page description has been updated.');
   };
   
   const handleViewChange = (view: 'performance' | 'harvest' | 'detailed') => {
@@ -122,8 +122,8 @@ const StatsPage = () => {
   };
   
   const handleExportData = () => {
-    console.log('Les données statistiques ont été exportées avec succès.');
-    console.log("Les données exportées sont disponibles pour tous les modules");
+    console.log('Statistical data has been exported successfully.');
+    console.log("Exported data is available to all modules");
   };
 
   return (
@@ -159,8 +159,8 @@ const StatsPage = () => {
                   />
                 </p>
                 <div className="flex items-center mt-1 text-xs text-muted-foreground">
-                  <span className="mr-2">Modules connectés: {connectedModules.join(', ')}</span>
-                  <span>Dernière synchro: {lastSyncDate.toLocaleString()}</span>
+                  <span className="mr-2">Connected modules: {connectedModules.join(', ')}</span>
+                  <span>Last sync: {lastSyncDate.toLocaleString()}</span>
                 </div>
               </div>
               
@@ -174,7 +174,7 @@ const StatsPage = () => {
                   }`}
                 >
                   <PieChart className="h-4 w-4 mr-1.5" />
-                  Indicateurs
+                  Indicators
                 </button>
                 
                 <button 
@@ -186,7 +186,7 @@ const StatsPage = () => {
                   }`}
                 >
                   <BarChart className="h-4 w-4 mr-1.5" />
-                  Récoltes
+                  Harvest
                 </button>
                 
                 <button 
@@ -198,18 +198,18 @@ const StatsPage = () => {
                   }`}
                 >
                   <TrendingUp className="h-4 w-4 mr-1.5" />
-                  Détaillé
+                  Detailed
                 </button>
                 
                 <PreviewPrintButton
                   data={performanceData}
                   moduleName="performance-indicators"
-                  title="Indicateurs de Performance Agricole"
+                  title="Agricultural Performance Indicators"
                   columns={[
-                    { key: "name", header: "Indicateur" },
-                    { key: "current", header: "Valeur actuelle" },
-                    { key: "target", header: "Objectif" },
-                    { key: "unit", header: "Unité" }
+                    { key: "name", header: "Indicator" },
+                    { key: "current", header: "Current Value" },
+                    { key: "target", header: "Target" },
+                    { key: "unit", header: "Unit" }
                   ]}
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                   variant="ghost"
@@ -220,7 +220,7 @@ const StatsPage = () => {
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                 >
                   <Download className="h-4 w-4 mr-1.5" />
-                  Exporter
+                  Export
                 </button>
                 
                 <button 
@@ -229,17 +229,17 @@ const StatsPage = () => {
                   disabled={isSyncing}
                 >
                   <RefreshCw className={`h-4 w-4 mr-1.5 ${isSyncing ? 'animate-spin' : ''}`} />
-                  {isSyncing ? 'Synchronisation...' : 'Synchroniser'}
+                  {isSyncing ? 'Syncing...' : 'Sync'}
                 </button>
                 
                 <button 
                   onClick={() => {
-                    console.log('Vos préférences de notification ont été mises à jour');
+                    console.log('Your notification preferences have been updated');
                   }}
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                 >
                   <Bell className="h-4 w-4 mr-1.5" />
-                  Alertes
+                  Alerts
                 </button>
               </div>
             </motion.header>
@@ -252,16 +252,16 @@ const StatsPage = () => {
                 className="mb-8"
               >
                 <ChartConfig 
-                  title="Indicateurs de performance agricole en Guadeloupe"
-                  description="Suivez vos performances par rapport à vos objectifs pour les cultures guadeloupéennes"
+                  title="Agricultural performance indicators in Guadeloupe"
+                  description="Track your performance against your targets for Guadeloupean crops"
                   onTitleChange={(title) => {
-                    console.log('Le titre du graphique a été mis à jour.');
+                    console.log('Chart title has been updated.');
                   }}
                   onDescriptionChange={(desc) => {
-                    console.log('La description du graphique a été mise à jour.');
+                    console.log('Chart description has been updated.');
                   }}
                   onOptionsChange={(options) => {
-                    console.log('Les options du graphique ont été mises à jour.');
+                    console.log('Chart options have been updated.');
                   }}
                   className="mb-6"
                 >

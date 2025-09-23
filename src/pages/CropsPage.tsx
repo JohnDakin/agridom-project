@@ -29,23 +29,23 @@ const CropsPage = () => {
   // Print columns for different tabs
   const printColumns = {
     harvest: [
-      { key: "nom", header: "Culture" },
-      { key: "rendement", header: "Rendement (t/ha)" },
-      { key: "surface", header: "Surface (ha)" },
-      { key: "date", header: "Date de récolte" }
+      { key: "name", header: "Crop" },
+      { key: "yield", header: "Yield (t/ha)" },
+      { key: "area", header: "Area (ha)" },
+      { key: "date", header: "Harvest Date" }
     ],
     specific: [
-      { key: "nom", header: "Nom" },
-      { key: "variete", header: "Variété" },
-      { key: "dateDebut", header: "Date de début" },
-      { key: "dateFin", header: "Date de fin" }
+      { key: "name", header: "Name" },
+      { key: "variety", header: "Variety" },
+      { key: "startDate", header: "Start Date" },
+      { key: "endDate", header: "End Date" }
     ],
     planning: [
-      { key: "nom", header: "Culture" },
-      { key: "activite", header: "Activité" },
-      { key: "dateDebut", header: "Date de début" },
-      { key: "dateFin", header: "Date de fin" },
-      { key: "statut", header: "Statut" }
+      { key: "name", header: "Crop" },
+      { key: "activity", header: "Activity" },
+      { key: "startDate", header: "Start Date" },
+      { key: "endDate", header: "End Date" },
+      { key: "status", header: "Status" }
     ]
   };
 
@@ -58,7 +58,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={harvestData}
               moduleName="harvest"
-              title="Suivi des Récoltes"
+              title="Harvest Tracking"
               columns={printColumns.harvest}
               variant="outline"
             />
@@ -72,19 +72,19 @@ const CropsPage = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-white border shadow-lg">
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export CSV des données de récolte")}
+                  onClick={() => console.log("Export CSV harvest data")}
                   className="cursor-pointer"
                 >
                   Export CSV
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export Excel des données de récolte")}
+                  onClick={() => console.log("Export Excel harvest data")}
                   className="cursor-pointer"
                 >
                   Export Excel
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export PDF des données de récolte")}
+                  onClick={() => console.log("Export PDF harvest data")}
                   className="cursor-pointer"
                 >
                   Export PDF
@@ -96,7 +96,7 @@ const CropsPage = () => {
               variant="outline" 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Synchronisation des données de récolte");
+                console.log("Synchronizing harvest data");
               }}
             >
               <RefreshCw className="h-4 w-4" />
@@ -106,11 +106,11 @@ const CropsPage = () => {
               variant="outline" 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Filtres appliqués aux données de récolte");
+                console.log("Filters applied to harvest data");
               }}
             >
               <Filter className="h-4 w-4" />
-              Filtrer
+              Filter
             </Button>
           </div>
         );
@@ -120,7 +120,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={getModuleData('cultures').items || []}
               moduleName="cultures"
-              title="Cultures Spécifiques"
+              title="Specific Crops"
               columns={printColumns.specific}
               variant="outline"
             />
@@ -128,21 +128,21 @@ const CropsPage = () => {
             <Button 
               className="flex items-center gap-2 bg-agri-primary hover:bg-agri-primary-dark transition-colors"
               onClick={() => {
-                console.log("Ajout de nouvelle culture");
+                console.log("Adding new crop");
               }}
             >
               <Plus className="h-4 w-4" />
-              Ajouter
+              Add
             </Button>
             <Button 
               variant="outline" 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Export des données des cultures");
+                console.log("Export crop data");
               }}
             >
               <Download className="h-4 w-4" />
-              Exporter
+              Export
             </Button>
           </div>
         );
@@ -152,7 +152,7 @@ const CropsPage = () => {
             <PreviewPrintButton 
               data={[]}
               moduleName="planning"
-              title="Planification des Cultures"
+              title="Crop Planning"
               columns={printColumns.planning}
               variant="outline"
             />
@@ -161,20 +161,20 @@ const CropsPage = () => {
               variant="outline" 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Planification du calendrier des cultures");
+                console.log("Planning crop calendar");
               }}
             >
               <CalendarRange className="h-4 w-4" />
-              Planifier
+              Plan
             </Button>
             <Button 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Ajout de nouvelle tâche culturale");
+                console.log("Adding new crop task");
               }}
             >
               <Plus className="h-4 w-4" />
-              Nouvelle tâche
+              New Task
             </Button>
           </div>
         );
@@ -187,29 +187,29 @@ const CropsPage = () => {
     setActiveTab(value);
     
     const tabLabels = {
-      harvest: 'Suivi des Récoltes',
-      specific: 'Cultures Spécifiques',
-      planning: 'Planification'
+      harvest: 'Harvest Tracking',
+      specific: 'Specific Crops',
+      planning: 'Planning'
     };
     
     const label = tabLabels[value as keyof typeof tabLabels] || value;
-    console.log(`${label} activé - Affichage des données correspondantes`);
+    console.log(`${label} activated - Displaying corresponding data`);
   };
 
   const tabs: TabItem[] = [
     {
       value: 'harvest',
-      label: 'Suivi des Récoltes',
+      label: 'Harvest Tracking',
       content: <GuadeloupeHarvestTracking />
     },
     {
       value: 'specific',
-      label: 'Cultures Spécifiques',
+      label: 'Specific Crops',
       content: <GuadeloupeSpecificCrops />
     },
     {
       value: 'planning',
-      label: 'Planification',
+      label: 'Planning',
       content: <CropPlanning />
     }
   ];
@@ -226,9 +226,9 @@ const CropsPage = () => {
           >
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
               <div>
-                <h1 className="text-3xl font-bold">Gestion des Cultures</h1>
+                <h1 className="text-3xl font-bold">Crop Management</h1>
                 <p className="text-muted-foreground">
-                  Gérez vos cultures tropicales et suivez leur rendement
+                  Manage your tropical crops and track their yield
                 </p>
               </div>
               {getTabActions()}
