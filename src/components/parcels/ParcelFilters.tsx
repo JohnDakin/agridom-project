@@ -69,7 +69,7 @@ const ParcelFilters = ({
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground pointer-events-none" />
           <Input
             type="search"
-            placeholder="Rechercher une parcelle..."
+            placeholder="Search for a parcel..."
             className="pl-9 w-full md:w-48"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -83,11 +83,11 @@ const ParcelFilters = ({
           <SelectValue placeholder="Statut" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Tous les statuts</SelectItem>
-          <SelectItem value="active">Parcelles actives</SelectItem>
-          <SelectItem value="fallow">En jachère</SelectItem>
-          <SelectItem value="planned">Planifiées</SelectItem>
-          <SelectItem value="rented">Louées</SelectItem>
+          <SelectItem value="all">All statuses</SelectItem>
+          <SelectItem value="active">Active parcels</SelectItem>
+          <SelectItem value="fallow">Fallow</SelectItem>
+          <SelectItem value="planned">Planned</SelectItem>
+          <SelectItem value="rented">Rented</SelectItem>
         </SelectContent>
       </Select>
       
@@ -97,11 +97,11 @@ const ParcelFilters = ({
           <SelectValue placeholder="Type" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Tous les types</SelectItem>
-          <SelectItem value="field">Champs</SelectItem>
-          <SelectItem value="greenhouse">Serres</SelectItem>
-          <SelectItem value="orchard">Vergers</SelectItem>
-          <SelectItem value="experimental">Expérimentales</SelectItem>
+          <SelectItem value="all">All types</SelectItem>
+          <SelectItem value="field">Fields</SelectItem>
+          <SelectItem value="greenhouse">Greenhouses</SelectItem>
+          <SelectItem value="orchard">Orchards</SelectItem>
+          <SelectItem value="experimental">Experimental</SelectItem>
         </SelectContent>
       </Select>
 
@@ -119,7 +119,7 @@ const ParcelFilters = ({
                   format(dateRange.from, 'dd/MM/yyyy')
                 )
               ) : (
-                "Sélectionner des dates"
+                "Select dates"
               )}
             </Button>
           </PopoverTrigger>
@@ -142,13 +142,13 @@ const ParcelFilters = ({
         <PopoverTrigger asChild>
           <Button variant="outline">
             <SlidersHorizontal className="h-4 w-4 mr-2" />
-            Filtres avancés
+            Advanced Filters
           </Button>
         </PopoverTrigger>
         <PopoverContent className="w-80">
           <div className="space-y-4">
             <div>
-              <h4 className="mb-2 font-medium">Superficie (hectares)</h4>
+              <h4 className="mb-2 font-medium">Area (hectares)</h4>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm">{tempAreaRange[0]} ha</span>
                 <span className="text-sm">{tempAreaRange[1]} ha</span>
@@ -168,7 +168,7 @@ const ParcelFilters = ({
                 onClick={applyAdvancedFilters}
                 className="bg-agri-primary hover:bg-agri-primary-dark text-white"
               >
-                Appliquer les filtres
+                Apply filters
               </Button>
             </div>
           </div>
