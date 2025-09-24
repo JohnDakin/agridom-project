@@ -87,9 +87,9 @@ const initialWeatherAlerts = [
 
 const Dashboard = () => {
   // State for editable content
-  const [title, setTitle] = useState('Bonjour, Agriculteur Guadeloupéen');
-  const [description, setDescription] = useState('Voici un aperçu de votre exploitation agricole en Guadeloupe');
-  const [currentMonth, setCurrentMonth] = useState('Août 2023');
+  const [title, setTitle] = useState('Hello, Guadeloupean Farmer');
+  const [description, setDescription] = useState('Here is an overview of your agricultural operation in Guadeloupe');
+  const [currentMonth, setCurrentMonth] = useState('August 2023');
   
   // Stats cards
   const [monthlyRevenue, setMonthlyRevenue] = useState(15450);
@@ -159,7 +159,7 @@ const Dashboard = () => {
   
   const handleYieldChange = (value: string | number) => {
     setAverageYield(Number(value));
-    toast.success('Rendement moyen mis à jour');
+    toast.success('Average yield updated');
   };
   
   const handleYieldGrowthChange = (value: string | number) => {
@@ -279,7 +279,7 @@ const Dashboard = () => {
             onClick={handleAddTransaction}
           >
             <Wallet className="h-4 w-4 inline mr-2" />
-            Ajouter une transaction
+            Add Transaction
           </button>
         </div>
       </header>
@@ -287,7 +287,7 @@ const Dashboard = () => {
       {/* Quick Stats Row - Adapté à l'agriculture guadeloupéenne */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div className="stat-card card-hover">
-          <p className="stat-label">Revenu mensuel</p>
+          <p className="stat-label">Monthly Revenue</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -310,7 +310,7 @@ const Dashboard = () => {
         </div>
         
         <div className="stat-card card-hover">
-          <p className="stat-label">Superficie cultivée</p>
+          <p className="stat-label">Cultivated Area</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -332,7 +332,7 @@ const Dashboard = () => {
         </div>
         
         <div className="stat-card card-hover">
-          <p className="stat-label">Rendement moyen</p>
+          <p className="stat-label">Average Yield</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">
               <EditableField
@@ -368,7 +368,7 @@ const Dashboard = () => {
       {/* Weather alerts section */}
       <div className="bg-white rounded-xl border p-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Alertes Météorologiques</h2>
+          <h2 className="text-xl font-semibold">Weather Alerts</h2>
           <Button 
             onClick={() => setShowAddAlertDialog(true)}
             className="bg-agri-primary hover:bg-agri-primary-dark"
@@ -377,7 +377,7 @@ const Dashboard = () => {
           </Button>
         </div>
         <p className="text-muted-foreground mb-6">
-          Suivez les alertes météorologiques impactant l'agriculture en Guadeloupe
+          Track weather alerts impacting agriculture in Guadeloupe
         </p>
         
         <div className="overflow-x-auto">
@@ -510,7 +510,7 @@ const Dashboard = () => {
         {/* Revenue Chart */}
         <div className="dashboard-card col-span-full lg:col-span-2 card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Revenu Mensuel</h3>
+            <h3 className="font-semibold">Monthly Revenue</h3>
             <div className="flex space-x-2">
               <button className="text-xs px-3 py-1.5 bg-muted rounded-md text-foreground">2023</button>
               <button className="text-xs px-3 py-1.5 text-muted-foreground hover:bg-muted rounded-md">2022</button>

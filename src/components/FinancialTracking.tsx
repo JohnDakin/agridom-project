@@ -449,7 +449,7 @@ const FinancialTracking = () => {
       <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>Ajouter une transaction</DialogTitle>
+            <DialogTitle>Add Transaction</DialogTitle>
           </DialogHeader>
           
           <Form {...form}>
