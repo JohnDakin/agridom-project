@@ -590,7 +590,7 @@ const GuadeloupeWeatherAlerts = () => {
         </div>
         
         <div className="border rounded-lg overflow-hidden">
-          <h3 className="text-lg font-semibold p-4 bg-muted/20 border-b">Gérer les alertes</h3>
+          <h3 className="text-lg font-semibold p-4 bg-muted/20 border-b">Manage alerts</h3>
           <EditableTable
             data={filteredAlerts}
             columns={columns}

@@ -45,18 +45,18 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
       task.id === taskId ? { ...task, title: editedTaskTitle } : task
     ));
     setEditingTask(null);
-    toast.success('Tâche mise à jour');
+    toast.success('Task updated');
   };
   
   const handleDeleteTask = (taskId: number) => {
     setTasks(tasks.filter(task => task.id !== taskId));
-    toast.success('Tâche supprimée');
+    toast.success('Task deleted');
   };
   
   // Add new task
   const handleAddTask = () => {
     if (!newTask.title.trim() || !newTask.due.trim()) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+      toast.error('Please fill in all required fields');
       return;
     }
     
@@ -74,13 +74,13 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
       priority: 'medium'
     });
     
-    toast.success('Nouvelle tâche ajoutée');
+    toast.success('New task added');
   };
   
   return (
     <div className="dashboard-card card-hover animate-enter">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-semibold">Tâches à venir</h3>
+        <h3 className="font-semibold">Upcoming tasks</h3>
         <div className="flex items-center space-x-2">
           <Button 
             size="sm" 
@@ -89,7 +89,7 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
             className="text-xs text-agri-primary hover:bg-agri-primary/10"
           >
             <Plus className="h-3.5 w-3.5 mr-1" />
-            Ajouter
+            Add
           </Button>
         </div>
       </div>
@@ -135,7 +135,7 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
               ) : (
                 <>
                   <p className="text-sm font-medium">{task.title}</p>
-                  <p className="text-xs text-muted-foreground">Échéance: {task.due}</p>
+                  <p className="text-xs text-muted-foreground">Due: {task.due}</p>
                 </>
               )}
             </div>
@@ -160,43 +160,43 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
           </div>
         ))}
         {tasks.length === 0 && (
-          <p className="text-center text-muted-foreground py-4">Aucune tâche à venir</p>
+          <p className="text-center text-muted-foreground py-4">No upcoming tasks</p>
         )}
       </div>
       
       <Dialog open={showAddTaskDialog} onOpenChange={setShowAddTaskDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Ajouter une tâche</DialogTitle>
+            <DialogTitle>Add task</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="taskTitle" className="text-right">
-                Titre
+                Title
               </Label>
               <Input
                 id="taskTitle"
                 value={newTask.title}
                 onChange={(e) => setNewTask({...newTask, title: e.target.value})}
-                placeholder="Titre de la tâche"
+                placeholder="Task title"
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="dueDate" className="text-right">
-                Échéance
+                Due
               </Label>
               <Input
                 id="dueDate"
                 value={newTask.due}
                 onChange={(e) => setNewTask({...newTask, due: e.target.value})}
-                placeholder="ex: Aujourd'hui, Demain, 15/06"
+                placeholder="e.g., Today, Tomorrow, 06/15"
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="priority" className="text-right">
-                Priorité
+                Priority
               </Label>
               <select
                 id="priority"
@@ -204,18 +204,18 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
                 onChange={(e) => setNewTask({...newTask, priority: e.target.value})}
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
-                <option value="low">Faible</option>
-                <option value="medium">Moyenne</option>
-                <option value="high">Haute</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
               </select>
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowAddTaskDialog(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button onClick={handleAddTask}>
-              Ajouter
+              Add
             </Button>
           </DialogFooter>
         </DialogContent>

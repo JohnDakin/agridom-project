@@ -30,20 +30,20 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
     setAlerts(alerts.map(alert => 
       alert.id === id ? { ...alert, message } : alert
     ));
-    toast.success('Alerte mise à jour');
+    toast.success('Alert updated');
   };
   
   // Delete alert
   const handleDeleteAlert = (id: number) => {
     setAlerts(alerts.filter(alert => alert.id !== id));
     setAlertsCount(prev => prev - 1);
-    toast.success('Alerte supprimée');
+    toast.success('Alert deleted');
   };
   
   // Add new alert
   const handleAddAlert = () => {
     if (!newAlertMessage.trim()) {
-      toast.error('Veuillez saisir un message pour l\'alerte');
+      toast.error('Please enter an alert message');
       return;
     }
     
@@ -58,13 +58,13 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
     setAlertsCount(prev => prev + 1);
     setNewAlertMessage('');
     setShowAddAlertDialog(false);
-    toast.success('Nouvelle alerte ajoutée');
+    toast.success('New alert added');
   };
   
   return (
     <div className="dashboard-card card-hover animate-enter">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-semibold">Alertes</h3>
+        <h3 className="font-semibold">Alerts</h3>
         <div className="flex items-center space-x-2">
           <Button 
             size="sm" 
@@ -73,7 +73,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
             className="text-xs text-agri-primary hover:bg-agri-primary/10"
           >
             <Plus className="h-3.5 w-3.5 mr-1" />
-            Ajouter
+            Add
           </Button>
         </div>
       </div>
@@ -115,14 +115,14 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
           </div>
         ))}
         {alerts.length === 0 && (
-          <p className="text-center text-muted-foreground py-4">Aucune alerte active</p>
+          <p className="text-center text-muted-foreground py-4">No active alerts</p>
         )}
       </div>
       
       <Dialog open={showAddAlertDialog} onOpenChange={setShowAddAlertDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Ajouter une alerte</DialogTitle>
+            <DialogTitle>Add alert</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -136,7 +136,7 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
                 <option value="info">Information</option>
-                <option value="warning">Avertissement</option>
+                <option value="warning">Warning</option>
                 <option value="danger">Danger</option>
               </select>
             </div>
@@ -148,17 +148,17 @@ const AlertsPanel: React.FC<AlertsPanelProps> = ({ alerts, setAlerts, setAlertsC
                 id="message"
                 value={newAlertMessage}
                 onChange={(e) => setNewAlertMessage(e.target.value)}
-                placeholder="Entrez le message de l'alerte"
+                placeholder="Enter the alert message"
                 className="col-span-3"
               />
             </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowAddAlertDialog(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button onClick={handleAddAlert}>
-              Ajouter
+              Add
             </Button>
           </DialogFooter>
         </DialogContent>

@@ -114,17 +114,17 @@ const initialCostData: CostData[] = [
 
 const initialRevenueData = [
   { month: 'Jan', revenue: 28500, expenses: 20100, profit: 8400 },
-  { month: 'Fév', revenue: 30200, expenses: 21800, profit: 8400 },
+  { month: 'Feb', revenue: 30200, expenses: 21800, profit: 8400 },
   { month: 'Mar', revenue: 32800, expenses: 22400, profit: 10400 },
-  { month: 'Avr', revenue: 35500, expenses: 23100, profit: 12400 },
-  { month: 'Mai', revenue: 38200, expenses: 23500, profit: 14700 },
-  { month: 'Juin', revenue: 37800, expenses: 22900, profit: 14900 },
-  { month: 'Juil', revenue: 42500, expenses: 24200, profit: 18300 },
-  { month: 'Août', revenue: 44800, expenses: 25300, profit: 19500 },
+  { month: 'Apr', revenue: 35500, expenses: 23100, profit: 12400 },
+  { month: 'May', revenue: 38200, expenses: 23500, profit: 14700 },
+  { month: 'Jun', revenue: 37800, expenses: 22900, profit: 14900 },
+  { month: 'Jul', revenue: 42500, expenses: 24200, profit: 18300 },
+  { month: 'Aug', revenue: 44800, expenses: 25300, profit: 19500 },
   { month: 'Sep', revenue: 40200, expenses: 24800, profit: 15400 },
   { month: 'Oct', revenue: 38200, expenses: 23100, profit: 15100 },
   { month: 'Nov', revenue: 36500, expenses: 22500, profit: 14000 },
-  { month: 'Déc', revenue: 41200, expenses: 25800, profit: 15400 }
+  { month: 'Dec', revenue: 41200, expenses: 25800, profit: 15400 }
 ];
 
 const initialEnvironmentalIndicators: EnvironmentalData[] = [

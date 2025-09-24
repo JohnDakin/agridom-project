@@ -32,12 +32,12 @@ import PageHeader from './layout/PageHeader';
 // Sample data for charts - Adapté pour la Guadeloupe
 const revenueData = [
   { month: 'Jan', revenue: 1500 },
-  { month: 'Fév', revenue: 2200 },
+  { month: 'Feb', revenue: 2200 },
   { month: 'Mar', revenue: 2500 },
-  { month: 'Avr', revenue: 2800 },
-  { month: 'Mai', revenue: 3200 },
-  { month: 'Juin', revenue: 3500 },
-  { month: 'Juil', revenue: 4000 },
+  { month: 'Apr', revenue: 2800 },
+  { month: 'May', revenue: 3200 },
+  { month: 'Jun', revenue: 3500 },
+  { month: 'Jul', revenue: 4000 },
 ];
 
 const productionData = [
@@ -50,17 +50,17 @@ const productionData = [
 
 // Task list adapté au contexte guadeloupéen
 const initialUpcomingTasks = [
-  { id: 1, title: 'Récolter la canne à sucre', due: 'Aujourd\'hui', priority: 'high' },
-  { id: 2, title: 'Commander des plants de bananier', due: 'Demain', priority: 'medium' },
-  { id: 3, title: 'Maintenance du tracteur', due: '28/08', priority: 'low' },
-  { id: 4, title: 'Irrigation des plantations d\'ananas', due: '30/08', priority: 'medium' },
+  { id: 1, title: 'Harvest sugarcane', due: 'Today', priority: 'high' },
+  { id: 2, title: 'Order banana seedlings', due: 'Tomorrow', priority: 'medium' },
+  { id: 3, title: 'Tractor maintenance', due: '28/08', priority: 'low' },
+  { id: 4, title: 'Irrigation of pineapple fields', due: '30/08', priority: 'medium' },
 ];
 
 // Alerts pour les agriculteurs en Guadeloupe
 const initialAlerts = [
-  { id: 1, message: 'Niveau bas de plants de bananier', type: 'warning' },
-  { id: 2, message: 'Risque cyclonique pour la semaine prochaine', type: 'danger' },
-  { id: 3, message: 'Échéance de subvention régionale approche', type: 'info' },
+  { id: 1, message: 'Low level of banana seedlings', type: 'warning' },
+  { id: 2, message: 'Cyclone risk next week', type: 'danger' },
+  { id: 3, message: 'Regional subsidy deadline approaching', type: 'info' },
 ];
 
 // Weather alerts data
@@ -373,7 +373,7 @@ const Dashboard = () => {
             onClick={() => setShowAddAlertDialog(true)}
             className="bg-agri-primary hover:bg-agri-primary-dark"
           >
-            <Plus size={16} className="mr-2" /> Ajouter une alerte
+            <Plus size={16} className="mr-2" /> Add alert
           </Button>
         </div>
         <p className="text-muted-foreground mb-6">
@@ -582,8 +582,8 @@ const Dashboard = () => {
         {/* Upcoming Tasks - Adapté au contexte agricole guadeloupéen */}
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Tâches à venir</h3>
-            <button className="text-xs text-agri-primary hover:underline">Voir tout</button>
+            <h3 className="font-semibold">Upcoming Tasks</h3>
+            <button className="text-xs text-agri-primary hover:underline">View all</button>
           </div>
           
           <div className="space-y-3">
@@ -660,8 +660,8 @@ const Dashboard = () => {
         {/* Alerts - Adapté à l'agriculture en Guadeloupe */}
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold">Alertes</h3>
-            <button className="text-xs text-agri-primary hover:underline">Gérer les alertes</button>
+            <h3 className="font-semibold">Alerts</h3>
+            <button className="text-xs text-agri-primary hover:underline">Manage alerts</button>
           </div>
           
           <div className="space-y-3">
@@ -711,7 +711,7 @@ const Dashboard = () => {
       <Dialog open={showAddAlertDialog} onOpenChange={setShowAddAlertDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Ajouter une alerte météorologique</DialogTitle>
+            <DialogTitle>Add weather alert</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
