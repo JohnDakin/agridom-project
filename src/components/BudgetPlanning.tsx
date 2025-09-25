@@ -26,13 +26,13 @@ interface BudgetItem {
 }
 
 const INITIAL_BUDGET_DATA: BudgetItem[] = [
-  { id: 1, category: 'Intrants', planned: 25000, actual: 22500, color: '#4CAF50' },
-  { id: 2, category: 'Équipement', planned: 30000, actual: 32000, color: '#2196F3' },
-  { id: 3, category: 'Main d\'oeuvre', planned: 40000, actual: 39000, color: '#FFC107' },
-  { id: 4, category: 'Carburant', planned: 12000, actual: 13500, color: '#F44336' },
+  { id: 1, category: 'Inputs', planned: 25000, actual: 22500, color: '#4CAF50' },
+  { id: 2, category: 'Equipment', planned: 30000, actual: 32000, color: '#2196F3' },
+  { id: 3, category: 'Labor', planned: 40000, actual: 39000, color: '#FFC107' },
+  { id: 4, category: 'Fuel', planned: 12000, actual: 13500, color: '#F44336' },
   { id: 5, category: 'Maintenance', planned: 8000, actual: 7200, color: '#9C27B0' },
   { id: 6, category: 'Services', planned: 15000, actual: 14000, color: '#00BCD4' },
-  { id: 7, category: 'Administratif', planned: 10000, actual: 9800, color: '#FF9800' },
+  { id: 7, category: 'Administrative', planned: 10000, actual: 9800, color: '#FF9800' },
 ];
 
 const BudgetPlanning = () => {
