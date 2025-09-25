@@ -103,13 +103,13 @@ const initialProfitabilityData: FinancialData[] = [
 ];
 
 const initialCostData: CostData[] = [
-  { name: 'Semences', value: 1800, color: '#4CAF50' },
-  { name: 'Fertilisants', value: 2200, color: '#8D6E63' },
-  { name: 'Phyto', value: 1500, color: '#FFC107' },
-  { name: 'Carburant', value: 1200, color: '#2196F3' },
-  { name: 'Main d\'œuvre', value: 3500, color: '#673AB7' },
-  { name: 'Mécanisation', value: 2800, color: '#E91E63' },
-  { name: 'Divers', value: 900, color: '#9E9E9E' }
+  { name: 'Seeds', value: 1800, color: '#4CAF50' },
+  { name: 'Fertilizers', value: 2200, color: '#8D6E63' },
+  { name: 'Pesticides', value: 1500, color: '#FFC107' },
+  { name: 'Fuel', value: 1200, color: '#2196F3' },
+  { name: 'Labor', value: 3500, color: '#673AB7' },
+  { name: 'Mechanization', value: 2800, color: '#E91E63' },
+  { name: 'Miscellaneous', value: 900, color: '#9E9E9E' }
 ];
 
 const initialRevenueData = [
