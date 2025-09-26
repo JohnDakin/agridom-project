@@ -47,99 +47,99 @@ import {
 const initialInventoryData = [
   { 
     id: 1, 
-    name: 'Semences de blé', 
-    category: 'Semences', 
+    name: 'Wheat Seeds', 
+    category: 'Seeds',
     quantity: 500, 
     unit: 'kg', 
     minQuantity: 100, 
     price: 2.5,
-    location: 'Hangar principal',
+    location: 'Main Warehouse',
     lastUpdated: '2023-08-01'
   },
   { 
     id: 2, 
-    name: 'Engrais NPK', 
-    category: 'Engrais', 
+    name: 'NPK Fertilizer', 
+    category: 'Fertilizers',
     quantity: 800, 
     unit: 'kg', 
     minQuantity: 200, 
     price: 1.2,
-    location: 'Hangar principal',
+    location: 'Main Warehouse',
     lastUpdated: '2023-07-15'
   },
   { 
     id: 3, 
     name: 'Herbicide RoundUp', 
-    category: 'Produits phytosanitaires', 
+    category: 'Phytosanitary Products', 
     quantity: 50, 
     unit: 'L', 
     minQuantity: 20, 
     price: 15,
-    location: 'Local sécurisé',
+    location: 'Secure Storage',
     lastUpdated: '2023-08-10'
   },
   { 
     id: 4, 
-    name: 'Carburant Diesel', 
-    category: 'Carburants', 
+    name: 'Diesel Fuel', 
+    category: 'Fuels',
     quantity: 350, 
     unit: 'L', 
     minQuantity: 100, 
     price: 1.8,
-    location: 'Cuve extérieure',
+    location: 'External Tank',
     lastUpdated: '2023-08-18'
   },
   { 
     id: 5, 
-    name: 'Semences de maïs', 
-    category: 'Semences', 
+    name: 'Corn Seeds', 
+    category: 'Seeds',
     quantity: 80, 
     unit: 'kg', 
     minQuantity: 100, 
     price: 4.5,
-    location: 'Hangar principal',
+    location: 'Main Warehouse',
     lastUpdated: '2023-07-22'
   },
   { 
     id: 6, 
-    name: 'Huile moteur', 
-    category: 'Lubrifiants', 
+    name: 'Motor Oil', 
+    category: 'Lubricants',
     quantity: 25, 
     unit: 'L', 
     minQuantity: 10, 
     price: 5.2,
-    location: 'Atelier',
+    location: 'Workshop',
     lastUpdated: '2023-06-30'
   },
   { 
     id: 7, 
-    name: 'Ficelle pour bottes', 
-    category: 'Consommables', 
+    name: 'Baling Twine', 
+    category: 'Consumables',
     quantity: 15, 
-    unit: 'rouleaux', 
+    unit: 'rolls', 
     minQuantity: 5, 
     price: 25,
-    location: 'Hangar matériel',
+    location: 'Equipment Warehouse',
     lastUpdated: '2023-07-05'
   }
 ];
 
 const initialTransactionHistory = [
-  { id: 1, itemId: 1, type: 'out', quantity: 50, date: '2023-08-20', user: 'Jean Dupont', notes: 'Semis parcelle nord' },
-  { id: 2, itemId: 2, type: 'out', quantity: 200, date: '2023-08-18', user: 'Jean Dupont', notes: 'Application parcelle est' },
-  { id: 3, itemId: 4, type: 'in', quantity: 500, date: '2023-08-18', user: 'Marie Martin', notes: 'Livraison mensuelle' },
-  { id: 4, itemId: 3, type: 'out', quantity: 5, date: '2023-08-15', user: 'Jean Dupont', notes: 'Application parcelle sud' },
-  { id: 5, itemId: 1, type: 'in', quantity: 200, date: '2023-08-10', user: 'Marie Martin', notes: 'Achat supplémentaire' },
-  { id: 6, itemId: 6, type: 'out', quantity: 5, date: '2023-08-05', user: 'Pierre Leroy', notes: 'Vidange tracteur' },
+  { id: 1, itemId: 1, type: 'out', quantity: 50, date: '2023-08-20', user: 'Jean Dupont', notes: 'North field sowing' },
+  { id: 2, itemId: 2, type: 'out', quantity: 200, date: '2023-08-18', user: 'Jean Dupont', notes: 'East field application' },
+  { id: 3, itemId: 4, type: 'in', quantity: 500, date: '2023-08-18', user: 'Marie Martin', notes: 'Monthly delivery' },
+  { id: 4, itemId: 3, type: 'out', quantity: 5, date: '2023-08-15', user: 'Jean Dupont', notes: 'South field application' },
+  { id: 5, itemId: 1, type: 'in', quantity: 200, date: '2023-08-10', user: 'Marie Martin', notes: 'Additional purchase' },
+  { id: 6, itemId: 6, type: 'out', quantity: 5, date: '2023-08-05', user: 'Pierre Leroy', notes: 'Tractor oil change' },
 ];
 
 const initialCategoryStats = [
-  { name: 'Semences', value: 580, fill: '#4CAF50' },
-  { name: 'Engrais', value: 800, fill: '#8D6E63' },
-  { name: 'Phytosanitaires', value: 50, fill: '#F44336' },
-  { name: 'Carburants', value: 350, fill: '#2196F3' },
-  { name: 'Lubrifiants', value: 25, fill: '#FFC107' },
-  { name: 'Consommables', value: 15, fill: '#9C27B0' }
+  { name: 'Seeds', value: 580, fill: '#4CAF50' },
+  { name: 'Fertilizers', value: 800, fill: '#8D6E63' },
+  { name: 'Phytosanitary', value: 50, fill: '#F44336' },
+  { name: 'Fuels', value: 350, fill: '#2196F3' },
+  { name: 'Lubricants', value: 25, fill: '#FFC107' },
+  { name: 'Consumables', value: 15, fill: '#9C27B0' }
 ];
 
 interface InventoryProps {
@@ -935,18 +935,18 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                       value={newItem.name}
                       onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
                       className="mt-1"
-                      placeholder="Ex: Semences de blé"
+                      placeholder="Ex: Wheat Seeds"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="category">Catégorie*</Label>
+                    <Label htmlFor="category">Category*</Label>
                     <Input
                       id="category"
                       value={newItem.category}
                       onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
                       className="mt-1"
                       list="categories-list"
-                      placeholder="Ex: Semences"
+                      placeholder="Ex: Seeds"
                     />
                     <datalist id="categories-list">
                       {categories
@@ -998,17 +998,17 @@ const Inventory: React.FC<InventoryProps> = ({ dateRange, searchTerm: externalSe
                     />
                   </div>
                   <div>
-                    <Label htmlFor="location">Emplacement</Label>
+                    <Label htmlFor="location">Location</Label>
                     <Input
                       id="location"
                       value={newItem.location}
                       onChange={(e) => setNewItem({ ...newItem, location: e.target.value })}
                       className="mt-1"
-                      placeholder="Ex: Hangar principal"
+                      placeholder="Ex: Main Warehouse"
                     />
                   </div>
                   <div className="md:col-span-2 lg:col-span-3">
-                    <Label htmlFor="notes">Notes additionnelles</Label>
+                    <Label htmlFor="notes">Additional Notes</Label>
                     <Textarea
                       id="notes"
                       value={newItem.notes || ''}

@@ -80,7 +80,7 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
   return (
     <div className="dashboard-card card-hover animate-enter">
       <div className="flex justify-between items-center mb-4">
-        <h3 className="font-semibold">Upcoming tasks</h3>
+        <h3 className="font-semibold">Upcoming Tasks</h3>
         <div className="flex items-center space-x-2">
           <Button 
             size="sm" 
@@ -89,7 +89,7 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
             className="text-xs text-agri-primary hover:bg-agri-primary/10"
           >
             <Plus className="h-3.5 w-3.5 mr-1" />
-            Add
+            Add Task
           </Button>
         </div>
       </div>
@@ -167,7 +167,7 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
       <Dialog open={showAddTaskDialog} onOpenChange={setShowAddTaskDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Add task</DialogTitle>
+            <DialogTitle>Add Task</DialogTitle>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
@@ -178,13 +178,13 @@ const TasksPanel: React.FC<TasksPanelProps> = ({ tasks, setTasks }) => {
                 id="taskTitle"
                 value={newTask.title}
                 onChange={(e) => setNewTask({...newTask, title: e.target.value})}
-                placeholder="Task title"
+                placeholder="Task name"
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="dueDate" className="text-right">
-                Due
+                Date
               </Label>
               <Input
                 id="dueDate"
