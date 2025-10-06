@@ -10,11 +10,19 @@ import { toast } from "sonner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
 
+interface DiseaseRisk {
+  name: string;
+  riskLevel: string;
+  conditions: string;
+  yieldImpact: string;
+}
+
 interface PredictionResult {
   yieldPerHectare: number;
   totalProduction: number;
   confidenceLevel: number;
   qualityGrade: string;
+  diseaseRisks: DiseaseRisk[];
   keyFactors: string[];
   recommendations: string[];
   analysis: string;
@@ -121,6 +129,26 @@ const YieldPrediction = () => {
       case 'moyenne': return 'text-yellow-600';
       case 'faible': return 'text-red-600';
       default: return 'text-gray-600';
+    }
+  };
+
+  const getRiskColor = (risk: string) => {
+    switch (risk.toLowerCase()) {
+      case 'critical': return 'bg-red-100 border-red-300 text-red-800';
+      case 'high': return 'bg-orange-100 border-orange-300 text-orange-800';
+      case 'moderate': return 'bg-yellow-100 border-yellow-300 text-yellow-800';
+      case 'low': return 'bg-green-100 border-green-300 text-green-800';
+      default: return 'bg-gray-100 border-gray-300 text-gray-800';
+    }
+  };
+
+  const getRiskIcon = (risk: string) => {
+    switch (risk.toLowerCase()) {
+      case 'critical': return '🔴';
+      case 'high': return '🟠';
+      case 'moderate': return '🟡';
+      case 'low': return '🟢';
+      default: return '⚪';
     }
   };
 
@@ -325,6 +353,38 @@ const YieldPrediction = () => {
                   {prediction.analysis}
                 </AlertDescription>
               </Alert>
+
+              {/* Disease Risks */}
+              {prediction.diseaseRisks && prediction.diseaseRisks.length > 0 && (
+                <div className="space-y-3">
+                  <h3 className="font-semibold text-lg flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-red-500" />
+                    Disease Risk Analysis
+                  </h3>
+                  <div className="grid gap-3">
+                    {prediction.diseaseRisks.map((disease, idx) => (
+                      <div 
+                        key={idx} 
+                        className={`p-4 rounded-lg border-2 ${getRiskColor(disease.riskLevel)}`}
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <h4 className="font-semibold flex items-center gap-2">
+                            <span>{getRiskIcon(disease.riskLevel)}</span>
+                            {disease.name}
+                          </h4>
+                          <span className="text-xs font-bold uppercase px-2 py-1 rounded">
+                            {disease.riskLevel} Risk
+                          </span>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <p><strong>Conditions:</strong> {disease.conditions}</p>
+                          <p><strong>Yield Impact:</strong> {disease.yieldImpact}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Key Factors */}
               <div>

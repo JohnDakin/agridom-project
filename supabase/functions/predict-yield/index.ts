@@ -22,7 +22,7 @@ serve(async (req) => {
     }
 
     const systemPrompt = `You are an expert agricultural AI specialized in crop yield prediction for tropical crops in Guadeloupe. 
-Based on environmental factors, provide accurate yield predictions with confidence levels and detailed recommendations.
+Based on environmental factors, provide accurate yield predictions with confidence levels, detailed recommendations, and disease risk analysis.
 
 Consider typical yields for Guadeloupe crops:
 - Canne à Sucre (Sugar Cane): 60-100 t/ha
@@ -32,7 +32,16 @@ Consider typical yields for Guadeloupe crops:
 - Madère (Taro): 15-30 t/ha
 - Christophine (Chayote): 20-35 t/ha
 
-Analyze how the provided environmental factors (soil type, humidity, moisture, temperature, rainfall) affect yield potential.`;
+Also analyze disease risks based on environmental conditions:
+- High humidity + high rainfall → fungal diseases (Black Sigatoka for bananas, leaf blight, root rot)
+- Excess moisture → bacterial diseases, crown rot
+- High temperature + low moisture → stress-related diseases, pest infestations
+- Poor drainage → Phytophthora, pythium
+- Optimal conditions for pests → viral diseases spread by insects
+
+Factor in how identified diseases would impact the predicted yield.
+
+Analyze how the provided environmental factors (soil type, humidity, moisture, temperature, rainfall) affect both yield potential and disease susceptibility.`;
 
     const userPrompt = `Predict the yield for ${cropType} with these conditions:
 - Soil Type: ${soilType}
@@ -43,12 +52,14 @@ Analyze how the provided environmental factors (soil type, humidity, moisture, t
 - Cultivation Area: ${area} hectares
 
 Provide:
-1. Predicted yield (in tonnes per hectare)
+1. Predicted yield (in tonnes per hectare) - adjusted for disease impact if applicable
 2. Total production (yield × area)
 3. Confidence level (0-100%)
 4. Quality grade (Excellente/Bonne/Moyenne/Faible)
-5. Key factors affecting the prediction
-6. Specific recommendations to optimize yield
+5. Disease risks - identify potential diseases based on conditions with risk level (Low/Moderate/High/Critical)
+6. Disease impact on yield - how identified diseases reduce potential yield
+7. Key factors affecting the prediction
+8. Specific recommendations to optimize yield and prevent/manage diseases
 
 Format your response as JSON with this structure:
 {
@@ -56,6 +67,7 @@ Format your response as JSON with this structure:
   "totalProduction": number,
   "confidenceLevel": number,
   "qualityGrade": string,
+  "diseaseRisks": [{"name": string, "riskLevel": string, "conditions": string, "yieldImpact": string}],
   "keyFactors": [string],
   "recommendations": [string],
   "analysis": string
