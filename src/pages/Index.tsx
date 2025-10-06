@@ -6,6 +6,7 @@ import TabContainer, { TabItem } from '../components/layout/TabContainer';
 import GuadeloupeHarvestTracking from '../components/GuadeloupeHarvestTracking';
 import GuadeloupeWeatherAlerts from '../components/GuadeloupeWeatherAlerts';
 import TaskList from '../components/cultures/TaskList';
+import YieldPrediction from '../components/YieldPrediction';
 import { Button } from '@/components/ui/button';
 import { PlusCircle, Download, Filter, RefreshCw, Upload, Printer } from 'lucide-react';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
@@ -235,6 +236,11 @@ const Index = () => {
       value: 'tasks',
       label: 'Tasks',
       content: <TaskList />
+    },
+    {
+      value: 'prediction',
+      label: 'AI Yield Prediction',
+      content: <YieldPrediction />
     }
   ];
 
