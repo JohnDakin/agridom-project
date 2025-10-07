@@ -23,6 +23,9 @@ import FinancialForecast from '../components/statistics/FinancialForecast';
 import BudgetPlanning from '../components/BudgetPlanning';
 import { toast } from 'sonner';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
+import { useCRM } from '../contexts/CRMContext';
+import ReportGenerationButton from '@/components/common/ReportGenerationButton';
+import PreviewPrintButton from '@/components/common/PreviewPrintButton';
 
 const FinancePage = () => {
   const { toast: shadowToast } = useToast();
@@ -54,21 +57,25 @@ const FinancePage = () => {
   const [showAddExpenseForm, setShowAddExpenseForm] = useState(false);
   const [reportGenerating, setReportGenerating] = useState(false);
 
-  const handleExportData = () => {
-    toast.success("Financial data export", {
-      description: "Your data has been exported to Excel format"
-    });
+  const { exportModuleData, importModuleData, printModuleData } = useCRM();
+
+  const handleExportData = async (format: 'csv' | 'excel' | 'pdf' = 'excel') => {
+    await exportModuleData('finances', format);
   };
 
   const handleImportData = () => {
     setImportDialogOpen(true);
   };
 
-  const handleImportConfirm = (importType: string) => {
+  const handleImportConfirm = async (file?: File) => {
+    if (file) {
+      await importModuleData('finances', file);
+    }
     setImportDialogOpen(false);
-    toast.success("Data import successful", {
-      description: `${importType} data has been imported successfully`
-    });
+  };
+
+  const handlePrintData = async () => {
+    await printModuleData('finances');
   };
 
   const handleGenerateReport = () => {
@@ -130,10 +137,14 @@ const FinancePage = () => {
   const renderHeaderActions = () => {
     return (
       <div className="flex flex-wrap space-x-2">
-        <Button variant="outline" onClick={handleExportData}>
-          <Download className="mr-2 h-4 w-4" />
-          Export
-        </Button>
+        <ReportGenerationButton moduleName="finances" variant="outline" />
+        
+        <PreviewPrintButton 
+          data={[]} 
+          moduleName="finances" 
+          title="Financial Report"
+          variant="outline"
+        />
         
         <Button variant="outline" onClick={handleImportData}>
           <Upload className="mr-2 h-4 w-4" />
@@ -200,22 +211,17 @@ const FinancePage = () => {
               <DialogTitle>Import financial data</DialogTitle>
             </DialogHeader>
             <div className="space-y-4">
-              <p className="text-muted-foreground">Choose the type of data to import:</p>
-              <div className="grid grid-cols-1 gap-2">
-                <Button variant="outline" className="justify-start" onClick={() => handleImportConfirm('banking')}>
-                  <CreditCard className="h-4 w-4 mr-2" />
-                  Banking data (CSV)
-                </Button>
-                <Button variant="outline" className="justify-start" onClick={() => handleImportConfirm('accounting')}>
-                  <FileText className="h-4 w-4 mr-2" />
-                  Accounting data (Excel)
-                </Button>
-                <Button variant="outline" className="justify-start" onClick={() => handleImportConfirm('invoices')}>
-                  <DollarSign className="h-4 w-4 mr-2" />
-                  Scanned invoices (PDF)
-                </Button>
-              </div>
-              <div className="flex justify-end">
+              <p className="text-muted-foreground">Select a CSV file to import:</p>
+              <input 
+                type="file" 
+                accept=".csv" 
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) handleImportConfirm(file);
+                }}
+                className="w-full border border-input bg-background px-3 py-2 text-sm rounded-md"
+              />
+              <div className="flex justify-end gap-2">
                 <Button variant="ghost" onClick={() => setImportDialogOpen(false)}>
                   Cancel
                 </Button>

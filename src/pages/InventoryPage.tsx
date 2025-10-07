@@ -23,9 +23,13 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Input } from '@/components/ui/input';
 import { motion } from 'framer-motion';
+import { useCRM } from '../contexts/CRMContext';
+import ReportGenerationButton from '@/components/common/ReportGenerationButton';
+import PreviewPrintButton from '@/components/common/PreviewPrintButton';
 
 const InventoryPage = () => {
   const { toast: shadowToast } = useToast();
+  const { exportModuleData, importModuleData, printModuleData, getModuleData } = useCRM();
   const [activeTab, setActiveTab] = useState<string>('inventory');
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
@@ -41,14 +45,15 @@ const InventoryPage = () => {
     defaultDescription: 'Manage your inventory and track stock levels of your Guadeloupean crops'
   });
 
-  const handleExportData = () => {
-    if (activeTab === 'inventory') {
-      console.log("Inventory data export launched");
-    } else if (activeTab === 'crops') {
-      console.log("Crop data export");
-    } else if (activeTab === 'weather') {
-      console.log("Weather data export");
-    }
+  const handleExportData = async (format: 'csv' | 'excel' | 'pdf') => {
+    const moduleMapping: {[key: string]: string} = {
+      'inventory': 'inventaire',
+      'crops': 'cultures',
+      'weather': 'statistiques'
+    };
+    
+    const module = moduleMapping[activeTab] || 'inventaire';
+    await exportModuleData(module, format);
   };
 
   const handleImportClick = () => {
@@ -57,11 +62,18 @@ const InventoryPage = () => {
     }
   };
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    console.log(`Importing file ${file.name}`);
+    const moduleMapping: {[key: string]: string} = {
+      'inventory': 'inventaire',
+      'crops': 'cultures',
+      'weather': 'statistiques'
+    };
+    
+    const module = moduleMapping[activeTab] || 'inventaire';
+    await importModuleData(module, file);
     
     // Reset file input
     if (fileInputRef.current) {
@@ -88,26 +100,21 @@ const InventoryPage = () => {
   };
 
   const renderTabActions = () => {
+    const inventoryData = getModuleData('inventaire')?.items || [];
+    
     return (
       <div className="flex flex-wrap gap-2">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="whitespace-nowrap transition-colors hover:bg-gray-100">
-              <Download className="mr-2 h-4 w-4" />
-              Export
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="bg-white border shadow-lg">
-            <DropdownMenuItem onClick={handleExportData} className="cursor-pointer">
-              <FileDown className="mr-2 h-4 w-4" />
-              Export CSV
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={handleExportData} className="cursor-pointer">
-              <BarChart2 className="mr-2 h-4 w-4" />
-              Export PDF
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ReportGenerationButton 
+          moduleName={activeTab === 'inventory' ? 'inventaire' : activeTab === 'crops' ? 'cultures' : 'statistiques'}
+          variant="outline"
+        />
+        
+        <PreviewPrintButton 
+          data={inventoryData}
+          moduleName={activeTab === 'inventory' ? 'inventaire' : activeTab === 'crops' ? 'cultures' : 'statistiques'}
+          title={activeTab === 'inventory' ? 'Inventory' : activeTab === 'crops' ? 'Crops' : 'Weather'}
+          variant="outline"
+        />
         
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

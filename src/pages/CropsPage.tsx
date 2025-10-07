@@ -21,7 +21,7 @@ import { useCRM } from '@/contexts/CRMContext';
 
 const CropsPage = () => {
   const [activeTab, setActiveTab] = useState<string>('harvest');
-  const { getModuleData } = useCRM();
+  const { getModuleData, exportModuleData, importModuleData } = useCRM();
   
   // Get harvest data for preview/print
   const harvestData = getModuleData('cultures').items || [];
@@ -72,25 +72,43 @@ const CropsPage = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="bg-white border shadow-lg">
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export CSV harvest data")}
+                  onClick={() => { exportModuleData('cultures', 'csv', harvestData); }}
                   className="cursor-pointer"
                 >
                   Export CSV
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export Excel harvest data")}
+                  onClick={() => { exportModuleData('cultures', 'excel', harvestData); }}
                   className="cursor-pointer"
                 >
                   Export Excel
                 </DropdownMenuItem>
                 <DropdownMenuItem 
-                  onClick={() => console.log("Export PDF harvest data")}
+                  onClick={() => { exportModuleData('cultures', 'pdf', harvestData); }}
                   className="cursor-pointer"
                 >
                   Export PDF
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
+            
+            <Button 
+              variant="outline" 
+              className="flex items-center gap-2 transition-colors"
+              onClick={() => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = (e) => {
+                  const file = (e.target as HTMLInputElement).files?.[0];
+                  if (file) importModuleData('cultures', file);
+                };
+                input.click();
+              }}
+            >
+              <Upload className="h-4 w-4" />
+              Import
+            </Button>
             
             <Button 
               variant="outline" 
@@ -134,15 +152,36 @@ const CropsPage = () => {
               <Plus className="h-4 w-4" />
               Add
             </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2 transition-colors">
+                  <Download className="h-4 w-4" />
+                  Export
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => exportModuleData('cultures', 'csv')}>Export CSV</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => exportModuleData('cultures', 'excel')}>Export Excel</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => exportModuleData('cultures', 'pdf')}>Export PDF</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            
             <Button 
               variant="outline" 
               className="flex items-center gap-2 transition-colors"
               onClick={() => {
-                console.log("Export crop data");
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.csv';
+                input.onchange = (e) => {
+                  const file = (e.target as HTMLInputElement).files?.[0];
+                  if (file) importModuleData('cultures', file);
+                };
+                input.click();
               }}
             >
-              <Download className="h-4 w-4" />
-              Export
+              <Upload className="h-4 w-4" />
+              Import
             </Button>
           </div>
         );

@@ -6,10 +6,12 @@ import { ChartConfig } from '../components/ui/chart-config';
 import { EditableTable, Column } from '../components/ui/editable-table';
 import { EditableField } from '../components/ui/editable-field';
 import { StatisticsProvider } from '../contexts/StatisticsContext';
-import { BarChart, PieChart, TrendingUp, Download, Filter, RefreshCw, Bell, Printer, Eye } from 'lucide-react';
+import { BarChart, PieChart, TrendingUp, Download, Filter, RefreshCw, Bell, Printer, Eye, Upload } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import PreviewPrintButton from '@/components/common/PreviewPrintButton';
+import { useCRM } from '../contexts/CRMContext';
+import ReportGenerationButton from '@/components/common/ReportGenerationButton';
 
 interface PerformanceData {
   name: string;
@@ -121,9 +123,25 @@ const StatsPage = () => {
     console.log(`Les modules connectés ont été adaptés à la vue ${view === 'performance' ? 'indicateurs' : view === 'harvest' ? 'récoltes' : 'détaillée'}`);
   };
   
-  const handleExportData = () => {
-    console.log('Statistical data has been exported successfully.');
-    console.log("Exported data is available to all modules");
+  const { exportModuleData, importModuleData, printModuleData } = useCRM();
+
+  const handleExportData = async () => {
+    await exportModuleData('statistiques', 'excel', performanceData);
+  };
+
+  const handleImportData = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.csv';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (file) importModuleData('statistiques', file);
+    };
+    input.click();
+  };
+
+  const handlePrintData = async () => {
+    await printModuleData('statistiques');
   };
 
   return (
@@ -215,12 +233,21 @@ const StatsPage = () => {
                   variant="ghost"
                 />
                 
-                <button 
-                  onClick={handleExportData}
+                <ReportGenerationButton 
+                  moduleName="statistiques"
+                  variant="ghost"
                   className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
                 >
                   <Download className="h-4 w-4 mr-1.5" />
                   Export
+                </ReportGenerationButton>
+                
+                <button 
+                  onClick={handleImportData}
+                  className="px-3 py-1.5 rounded-md flex items-center text-sm bg-muted hover:bg-muted/80 transition-colors"
+                >
+                  <Upload className="h-4 w-4 mr-1.5" />
+                  Import
                 </button>
                 
                 <button 
