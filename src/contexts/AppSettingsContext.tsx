@@ -3,7 +3,15 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface AppSettings {
   darkMode: boolean;
   locale: string;
-  // Add other settings here
+  compactMode?: boolean;
+  currency?: string;
+  dateFormat?: string;
+  emailNotifications?: boolean;
+  pushNotifications?: boolean;
+  weatherAlerts?: boolean;
+  autoSave?: boolean;
+  offlineMode?: boolean;
+  [key: string]: any;
 }
 
 interface AppSettingsContextType {
@@ -15,7 +23,14 @@ interface AppSettingsContextType {
 const defaultSettings: AppSettings = {
   darkMode: false,
   locale: 'en-US',
-  // Default values for other settings
+  compactMode: false,
+  currency: 'USD',
+  dateFormat: 'MM/DD/YYYY',
+  emailNotifications: true,
+  pushNotifications: false,
+  weatherAlerts: true,
+  autoSave: true,
+  offlineMode: false,
 };
 
 const AppSettingsContext = createContext<AppSettingsContextType>({
@@ -31,7 +46,17 @@ interface AppSettingsProviderProps {
 }
 
 export const AppSettingsProvider: React.FC<AppSettingsProviderProps> = ({ children }) => {
-  const [settings, setSettings] = useState<AppSettings>(defaultSettings);
+  const [settings, setSettings] = useState<AppSettings>(() => {
+    const savedSettings = localStorage.getItem('appSettings');
+    if (savedSettings) {
+      try {
+        return { ...defaultSettings, ...JSON.parse(savedSettings) };
+      } catch {
+        return defaultSettings;
+      }
+    }
+    return defaultSettings;
+  });
 
   const updateSetting = (key: string, value: any) => {
     setSettings(prevSettings => ({
