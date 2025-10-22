@@ -276,13 +276,13 @@ const BudgetPlanning = () => {
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Planned budget:</span>
                   <span className="font-medium">
-                    {totalPlanned.toLocaleString()} €
+                    {totalPlanned.toLocaleString()} Ksh
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Spent:</span>
                   <span className="font-medium">
-                    {totalActual.toLocaleString()} €
+                    {totalActual.toLocaleString()} Ksh
                   </span>
                 </div>
                 <div className="flex justify-between pt-2 border-t">
@@ -296,7 +296,7 @@ const BudgetPlanning = () => {
                         : "text-red-600"
                     }`}
                   >
-                    {(totalPlanned - totalActual).toLocaleString()} €
+                    {(totalPlanned - totalActual).toLocaleString()} Ksh
                   </span>
                 </div>
               </div>
@@ -392,7 +392,7 @@ const BudgetPlanning = () => {
                         </div>
                       </td>
                       <td className="text-right py-3 px-4">
-                        {item.planned.toLocaleString()} €
+                        {item.planned.toLocaleString()} Ksh
                       </td>
                       <td className="text-right py-3 px-4">
                         <Input
@@ -402,7 +402,7 @@ const BudgetPlanning = () => {
                             handleUpdateActual(item.id, e.target.value)
                           }
                         />
-                        €
+                        Ksh
                       </td>
                       <td className="text-right py-3 px-4">
                         <div className="flex items-center justify-end">
@@ -426,7 +426,7 @@ const BudgetPlanning = () => {
                           status === "under" ? "text-green-600" : "text-red-600"
                         }`}
                       >
-                        {balance.toLocaleString()} €
+                        {balance.toLocaleString()} Ksh
                       </td>
                       <td className="text-right py-3 px-4">
                         {status === "under" ? (
@@ -480,7 +480,7 @@ const BudgetPlanning = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="planned">Planned Budget (€)</Label>
+              <Label htmlFor="planned">Planned Budget (Ksh)</Label>
               <Input
                 id="planned"
                 type="number"
@@ -491,7 +491,7 @@ const BudgetPlanning = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="actual">Spent to Date (€) (optional)</Label>
+              <Label htmlFor="actual">Spent to Date (Ksh) (optional)</Label>
               <Input
                 id="actual"
                 type="number"
