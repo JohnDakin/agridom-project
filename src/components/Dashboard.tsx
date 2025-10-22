@@ -1,11 +1,10 @@
-
-import React, { useState } from 'react';
-import { 
-  BarChart3, 
-  TrendingUp, 
-  AlertTriangle, 
-  Sprout, 
-  CloudRain, 
+import React, { useState } from "react";
+import {
+  BarChart3,
+  TrendingUp,
+  AlertTriangle,
+  Sprout,
+  CloudRain,
   Sun,
   Droplet,
   Wind,
@@ -16,81 +15,109 @@ import {
   Plus,
   X,
   Check,
-  Edit
-} from 'lucide-react';
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
-import GuadeloupeWeatherAlerts from './GuadeloupeWeatherAlerts';
-import { EditableField } from './ui/editable-field';
-import { Button } from './ui/button';
-import { toast } from 'sonner';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from './ui/dialog';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Select } from './ui/select';
-import PageHeader from './layout/PageHeader';
+  Edit,
+} from "lucide-react";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+} from "recharts";
+import GuadeloupeWeatherAlerts from "./GuadeloupeWeatherAlerts";
+import { EditableField } from "./ui/editable-field";
+import { Button } from "./ui/button";
+import { toast } from "sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "./ui/dialog";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Select } from "./ui/select";
+import PageHeader from "./layout/PageHeader";
 
 // Sample data for charts - Adapté pour la Guadeloupe
 const revenueData = [
-  { month: 'Jan', revenue: 1500 },
-  { month: 'Feb', revenue: 2200 },
-  { month: 'Mar', revenue: 2500 },
-  { month: 'Apr', revenue: 2800 },
-  { month: 'May', revenue: 3200 },
-  { month: 'Jun', revenue: 3500 },
-  { month: 'Jul', revenue: 4000 },
+  { month: "Jan", revenue: 1500 },
+  { month: "Feb", revenue: 2200 },
+  { month: "Mar", revenue: 2500 },
+  { month: "Apr", revenue: 2800 },
+  { month: "May", revenue: 3200 },
+  { month: "Jun", revenue: 3500 },
+  { month: "Jul", revenue: 4000 },
 ];
 
 const productionData = [
-  { name: 'Canne à Sucre', value: 40 },
-  { name: 'Banane', value: 25 },
-  { name: 'Ananas', value: 15 },
-  { name: 'Igname', value: 10 },
-  { name: 'Autre', value: 10 },
+  { name: "Sugar Cane", value: 40 },
+  { name: "Banana", value: 25 },
+  { name: "Pineapple", value: 15 },
+  { name: "Yam", value: 10 },
+  { name: "Taro", value: 10 },
 ];
 
 // Task list adapté au contexte guadeloupéen
 const initialUpcomingTasks = [
-  { id: 1, title: 'Harvest sugarcane', due: 'Today', priority: 'high' },
-  { id: 2, title: 'Order banana seedlings', due: 'Tomorrow', priority: 'medium' },
-  { id: 3, title: 'Tractor maintenance', due: '28/08', priority: 'low' },
-  { id: 4, title: 'Irrigation of pineapple fields', due: '30/08', priority: 'medium' },
+  { id: 1, title: "Harvest sugarcane", due: "Today", priority: "high" },
+  {
+    id: 2,
+    title: "Order banana seedlings",
+    due: "Tomorrow",
+    priority: "medium",
+  },
+  { id: 3, title: "Tractor maintenance", due: "28/08", priority: "low" },
+  {
+    id: 4,
+    title: "Irrigation of pineapple fields",
+    due: "30/08",
+    priority: "medium",
+  },
 ];
 
 // Alerts pour les agriculteurs en Guadeloupe
 const initialAlerts = [
-  { id: 1, message: 'Low level of banana seedlings', type: 'warning' },
-  { id: 2, message: 'Cyclone risk next week', type: 'danger' },
-  { id: 3, message: 'Regional subsidy deadline approaching', type: 'info' },
+  { id: 1, message: "Low level of banana seedlings", type: "warning" },
+  { id: 2, message: "Flood risk next week", type: "danger" },
+  { id: 3, message: "Regional subsidy deadline approaching", type: "info" },
 ];
 
 // Weather alerts data
 const initialWeatherAlerts = [
-  { 
-    id: 1, 
-    type: 'Cyclone', 
-    region: 'Toute la Guadeloupe', 
-    startDate: '2023-09-10', 
-    endDate: '2023-09-12', 
-    severity: 'critique', 
-    description: 'Cyclone tropical de catégorie 2 en approche' 
+  {
+    id: 1,
+    type: "Floods",
+    region: "Kirinyaga",
+    startDate: "2023-09-10",
+    endDate: "2023-09-12",
+    severity: "critique",
+    description: "Experience servere flood",
   },
-  { 
-    id: 2, 
-    type: 'Pluie', 
-    region: 'Basse-Terre', 
-    startDate: '2023-09-20', 
-    endDate: '2023-09-23', 
-    severity: 'modérée', 
-    description: 'Fortes précipitations attendues' 
-  }
+  {
+    id: 2,
+    type: "Rain",
+    region: "Kisii",
+    startDate: "2023-09-20",
+    endDate: "2023-09-23",
+    severity: "moderate",
+    description: "Heavy precipitation expected",
+  },
 ];
 
 const Dashboard = () => {
   // State for editable content
-  const [title, setTitle] = useState('Hello, Guadeloupean Farmer');
-  const [description, setDescription] = useState('Here is an overview of your agricultural operation in Guadeloupe');
-  const [currentMonth, setCurrentMonth] = useState('August 2023');
-  
+  const [title, setTitle] = useState("Hello, Kenyan Farmer");
+  const [description, setDescription] = useState(
+    "Here is an overview of your agricultural operation in Kenya"
+  );
+  const [currentMonth, setCurrentMonth] = useState("August 2023");
+
   // Stats cards
   const [monthlyRevenue, setMonthlyRevenue] = useState(15450);
   const [revenueGrowth, setRevenueGrowth] = useState(8.5);
@@ -99,151 +126,158 @@ const Dashboard = () => {
   const [averageYield, setAverageYield] = useState(75);
   const [yieldGrowth, setYieldGrowth] = useState(5.2);
   const [alertsCount, setAlertsCount] = useState(3);
-  
+
   // Tasks and alerts
   const [upcomingTasks, setUpcomingTasks] = useState(initialUpcomingTasks);
   const [alerts, setAlerts] = useState(initialAlerts);
   const [weatherAlerts, setWeatherAlerts] = useState(initialWeatherAlerts);
-  
+
   // New alert dialog
   const [showAddAlertDialog, setShowAddAlertDialog] = useState(false);
   const [newAlert, setNewAlert] = useState({
-    type: 'Cyclone',
-    region: '',
-    startDate: '',
-    endDate: '',
-    severity: 'modérée',
-    description: ''
+    type: "Cyclone",
+    region: "",
+    startDate: "",
+    endDate: "",
+    severity: "modérée",
+    description: "",
   });
-  
+
   // Task editing state
   const [editingTask, setEditingTask] = useState<number | null>(null);
-  const [editedTaskTitle, setEditedTaskTitle] = useState('');
-  
+  const [editedTaskTitle, setEditedTaskTitle] = useState("");
+
   // Handle changes
   const handleTitleChange = (value: string | number) => {
     setTitle(String(value));
-    toast.success('Title updated');
+    toast.success("Title updated");
   };
-  
+
   const handleDescriptionChange = (value: string | number) => {
     setDescription(String(value));
-    toast.success('Description updated');
+    toast.success("Description updated");
   };
-  
+
   const handleMonthChange = (value: string | number) => {
     setCurrentMonth(String(value));
-    toast.success('Month updated');
+    toast.success("Month updated");
   };
-  
+
   // Stat card updates
   const handleRevenueChange = (value: string | number) => {
     setMonthlyRevenue(Number(value));
-    toast.success('Monthly revenue updated');
+    toast.success("Monthly revenue updated");
   };
-  
+
   const handleRevenueGrowthChange = (value: string | number) => {
     setRevenueGrowth(Number(value));
-    toast.success('Croissance du revenu mise à jour');
+    toast.success("Updated revenue growth");
   };
-  
+
   const handleAreaChange = (value: string | number) => {
     setCultivatedArea(Number(value));
-    toast.success('Cultivated area updated');
+    toast.success("Cultivated area updated");
   };
-  
+
   const handleParcelsCountChange = (value: string | number) => {
     setParcelsCount(Number(value));
-    toast.success('Nombre de parcelles mis à jour');
+    toast.success("Updated number of plots");
   };
-  
+
   const handleYieldChange = (value: string | number) => {
     setAverageYield(Number(value));
-    toast.success('Average yield updated');
+    toast.success("Average yield updated");
   };
-  
+
   const handleYieldGrowthChange = (value: string | number) => {
     setYieldGrowth(Number(value));
-    toast.success('Croissance du rendement mise à jour');
+    toast.success("Updated yield growth");
   };
-  
+
   // Task management
   const handleEditTask = (taskId: number) => {
-    const task = upcomingTasks.find(t => t.id === taskId);
+    const task = upcomingTasks.find((t) => t.id === taskId);
     if (task) {
       setEditingTask(taskId);
       setEditedTaskTitle(task.title);
     }
   };
-  
+
   const handleSaveTask = (taskId: number) => {
-    if (editedTaskTitle.trim() === '') return;
-    
-    setUpcomingTasks(upcomingTasks.map(task => 
-      task.id === taskId ? { ...task, title: editedTaskTitle } : task
-    ));
+    if (editedTaskTitle.trim() === "") return;
+
+    setUpcomingTasks(
+      upcomingTasks.map((task) =>
+        task.id === taskId ? { ...task, title: editedTaskTitle } : task
+      )
+    );
     setEditingTask(null);
-    toast.success('Task updated');
+    toast.success("Task updated");
   };
-  
+
   const handleDeleteTask = (taskId: number) => {
-    setUpcomingTasks(upcomingTasks.filter(task => task.id !== taskId));
-    toast.success('Task deleted');
+    setUpcomingTasks(upcomingTasks.filter((task) => task.id !== taskId));
+    toast.success("Task deleted");
   };
-  
+
   // Alert management
   const handleEditAlert = (id: number, message: string) => {
-    setAlerts(alerts.map(alert => 
-      alert.id === id ? { ...alert, message } : alert
-    ));
-    toast.success('Alerte mise à jour');
+    setAlerts(
+      alerts.map((alert) => (alert.id === id ? { ...alert, message } : alert))
+    );
+    toast.success("Updated alert");
   };
-  
+
   const handleDeleteAlert = (id: number) => {
-    setAlerts(alerts.filter(alert => alert.id !== id));
-    setAlertsCount(prev => prev - 1);
-    toast.success('Alerte supprimée');
+    setAlerts(alerts.filter((alert) => alert.id !== id));
+    setAlertsCount((prev) => prev - 1);
+    toast.success("Alert deleted");
   };
-  
+
   // Weather alert management
   const handleDeleteWeatherAlert = (id: number) => {
-    setWeatherAlerts(weatherAlerts.filter(alert => alert.id !== id));
-    toast.success('Alerte météorologique supprimée');
+    setWeatherAlerts(weatherAlerts.filter((alert) => alert.id !== id));
+    toast.success("Weather alert deleted");
   };
-  
+
   const handleAddWeatherAlert = () => {
     // Validation
-    if (!newAlert.region || !newAlert.startDate || !newAlert.endDate || !newAlert.description) {
-      toast.error('Veuillez remplir tous les champs obligatoires');
+    if (
+      !newAlert.region ||
+      !newAlert.startDate ||
+      !newAlert.endDate ||
+      !newAlert.description
+    ) {
+      toast.error("Please fill in all the required fields");
       return;
     }
-    
-    const newId = Math.max(...weatherAlerts.map(a => a.id), 0) + 1;
+
+    const newId = Math.max(...weatherAlerts.map((a) => a.id), 0) + 1;
     const alertToAdd = {
       id: newId,
-      ...newAlert
+      ...newAlert,
     };
-    
+
     setWeatherAlerts([...weatherAlerts, alertToAdd]);
     setShowAddAlertDialog(false);
     setNewAlert({
-      type: 'Cyclone',
-      region: '',
-      startDate: '',
-      endDate: '',
-      severity: 'modérée',
-      description: ''
+      type: "Floods",
+      region: "",
+      startDate: "",
+      endDate: "",
+      severity: "moderate",
+      description: "",
     });
-    
-    toast.success('Nouvelle alerte météorologique ajoutée');
+
+    toast.success("New weather alert added");
   };
-  
+
   // Add transaction handler (placeholder for future implementation)
   const handleAddTransaction = () => {
-    toast.info('Redirection vers la page de finances');
+    toast.info("Redirecting to the finance page");
     // In a real app, this would navigate to the finance page
   };
-  
+
   return (
     <div className="p-6 space-y-6 animate-enter">
       <header className="flex justify-between items-center mb-6">
@@ -274,7 +308,7 @@ const Dashboard = () => {
               className="inline-block"
             />
           </button>
-          <button 
+          <button
             className="px-4 py-2 text-sm bg-agri-primary text-white rounded-lg hover:bg-agri-primary-dark transition-colors"
             onClick={handleAddTransaction}
           >
@@ -295,7 +329,8 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleRevenueChange}
                 className="inline-block font-bold"
-              /> €
+              />{" "}
+              €
             </p>
             <span className="text-agri-success text-sm font-medium flex items-center">
               <TrendingUp className="h-4 w-4 mr-1" /> +
@@ -304,11 +339,12 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleRevenueGrowthChange}
                 className="inline-block"
-              />%
+              />
+              %
             </span>
           </div>
         </div>
-        
+
         <div className="stat-card card-hover">
           <p className="stat-label">Cultivated Area</p>
           <div className="flex items-baseline justify-between mt-2">
@@ -318,7 +354,8 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleAreaChange}
                 className="inline-block font-bold"
-              /> ha
+              />{" "}
+              ha
             </p>
             <span className="text-agri-primary text-sm font-medium">
               <EditableField
@@ -326,11 +363,12 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleParcelsCountChange}
                 className="inline-block"
-              /> parcelles
+              />{" "}
+              parcel
             </span>
           </div>
         </div>
-        
+
         <div className="stat-card card-hover">
           <p className="stat-label">Average Yield</p>
           <div className="flex items-baseline justify-between mt-2">
@@ -340,7 +378,8 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleYieldChange}
                 className="inline-block font-bold"
-              /> t/ha
+              />{" "}
+              t/ha
             </p>
             <span className="text-agri-success text-sm font-medium flex items-center">
               <TrendingUp className="h-4 w-4 mr-1" /> +
@@ -349,17 +388,18 @@ const Dashboard = () => {
                 type="number"
                 onSave={handleYieldGrowthChange}
                 className="inline-block"
-              />%
+              />
+              %
             </span>
           </div>
         </div>
-        
+
         <div className="stat-card card-hover">
-          <p className="stat-label">Alertes</p>
+          <p className="stat-label">Alerts</p>
           <div className="flex items-baseline justify-between mt-2">
             <p className="stat-value">{alertsCount}</p>
             <span className="text-agri-warning text-sm font-medium flex items-center">
-              <AlertTriangle className="h-4 w-4 mr-1" /> Récent
+              <AlertTriangle className="h-4 w-4 mr-1" /> Recent
             </span>
           </div>
         </div>
@@ -369,7 +409,7 @@ const Dashboard = () => {
       <div className="bg-white rounded-xl border p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-xl font-semibold">Weather Alerts</h2>
-          <Button 
+          <Button
             onClick={() => setShowAddAlertDialog(true)}
             className="bg-agri-primary hover:bg-agri-primary-dark"
           >
@@ -379,28 +419,29 @@ const Dashboard = () => {
         <p className="text-muted-foreground mb-6">
           Track weather alerts impacting agriculture in Guadeloupe
         </p>
-        
+
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-muted text-xs uppercase">
               <tr>
                 <th className="px-4 py-3 text-left">Type</th>
-                <th className="px-4 py-3 text-left">Région</th>
-                <th className="px-4 py-3 text-left">Période</th>
-                <th className="px-4 py-3 text-left">Sévérité</th>
+                <th className="px-4 py-3 text-left">Region</th>
+                <th className="px-4 py-3 text-left">Period</th>
+                <th className="px-4 py-3 text-left">Severity</th>
                 <th className="px-4 py-3 text-left">Description</th>
                 <th className="px-4 py-3 text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {weatherAlerts.map(alert => (
+              {weatherAlerts.map((alert) => (
                 <tr key={alert.id} className="border-t hover:bg-muted/30">
                   <td className="px-4 py-3 flex items-center">
-                    {alert.type === 'Cyclone' ? (
+                    {alert.type === "Cyclone" ? (
                       <span className="flex items-center text-red-500">
-                        <AlertTriangle size={16} className="mr-1" /> {alert.type}
+                        <AlertTriangle size={16} className="mr-1" />{" "}
+                        {alert.type}
                       </span>
-                    ) : alert.type === 'Pluie' ? (
+                    ) : alert.type === "Pluie" ? (
                       <span className="flex items-center text-blue-500">
                         <CloudRain size={16} className="mr-1" /> {alert.type}
                       </span>
@@ -414,58 +455,80 @@ const Dashboard = () => {
                     <EditableField
                       value={alert.region}
                       onSave={(value) => {
-                        setWeatherAlerts(weatherAlerts.map(a => 
-                          a.id === alert.id ? { ...a, region: String(value) } : a
-                        ));
-                        toast.success('Région mise à jour');
+                        setWeatherAlerts(
+                          weatherAlerts.map((a) =>
+                            a.id === alert.id
+                              ? { ...a, region: String(value) }
+                              : a
+                          )
+                        );
+                        toast.success("Updated Region");
                       }}
                     />
                   </td>
                   <td className="px-4 py-3">
                     <div className="space-y-1">
                       <div>
-                        <span className="text-xs text-muted-foreground">Début:</span>
+                        <span className="text-xs text-muted-foreground">
+                          Début:
+                        </span>
                         <EditableField
                           value={alert.startDate}
                           type="date"
                           onSave={(value) => {
-                            setWeatherAlerts(weatherAlerts.map(a => 
-                              a.id === alert.id ? { ...a, startDate: String(value) } : a
-                            ));
-                            toast.success('Date de début mise à jour');
+                            setWeatherAlerts(
+                              weatherAlerts.map((a) =>
+                                a.id === alert.id
+                                  ? { ...a, startDate: String(value) }
+                                  : a
+                              )
+                            );
+                            toast.success("Start date updated");
                           }}
                         />
                       </div>
                       <div>
-                        <span className="text-xs text-muted-foreground">Fin:</span>
+                        <span className="text-xs text-muted-foreground">
+                          Fin:
+                        </span>
                         <EditableField
                           value={alert.endDate}
                           type="date"
                           onSave={(value) => {
-                            setWeatherAlerts(weatherAlerts.map(a => 
-                              a.id === alert.id ? { ...a, endDate: String(value) } : a
-                            ));
-                            toast.success('Date de fin mise à jour');
+                            setWeatherAlerts(
+                              weatherAlerts.map((a) =>
+                                a.id === alert.id
+                                  ? { ...a, endDate: String(value) }
+                                  : a
+                              )
+                            );
+                            toast.success("End date updated");
                           }}
                         />
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
-                      alert.severity === 'critique' 
-                        ? 'bg-red-100 text-red-800' 
-                        : alert.severity === 'modérée'
-                          ? 'bg-yellow-100 text-yellow-800'
-                          : 'bg-green-100 text-green-800'
-                    }`}>
+                    <span
+                      className={`inline-flex items-center px-2 py-1 rounded-full text-xs ${
+                        alert.severity === "critique"
+                          ? "bg-red-100 text-red-800"
+                          : alert.severity === "modérée"
+                          ? "bg-yellow-100 text-yellow-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
                       <EditableField
                         value={alert.severity}
                         onSave={(value) => {
-                          setWeatherAlerts(weatherAlerts.map(a => 
-                            a.id === alert.id ? { ...a, severity: String(value) } : a
-                          ));
-                          toast.success('Sévérité mise à jour');
+                          setWeatherAlerts(
+                            weatherAlerts.map((a) =>
+                              a.id === alert.id
+                                ? { ...a, severity: String(value) }
+                                : a
+                            )
+                          );
+                          toast.success("Severity updated");
                         }}
                       />
                     </span>
@@ -474,16 +537,20 @@ const Dashboard = () => {
                     <EditableField
                       value={alert.description}
                       onSave={(value) => {
-                        setWeatherAlerts(weatherAlerts.map(a => 
-                          a.id === alert.id ? { ...a, description: String(value) } : a
-                        ));
-                        toast.success('Description mise à jour');
+                        setWeatherAlerts(
+                          weatherAlerts.map((a) =>
+                            a.id === alert.id
+                              ? { ...a, description: String(value) }
+                              : a
+                          )
+                        );
+                        toast.success("Description updated");
                       }}
                     />
                   </td>
                   <td className="px-4 py-3">
-                    <Button 
-                      variant="ghost" 
+                    <Button
+                      variant="ghost"
                       size="sm"
                       onClick={() => handleDeleteWeatherAlert(alert.id)}
                       className="text-red-500 hover:text-red-700 hover:bg-red-100"
@@ -495,8 +562,11 @@ const Dashboard = () => {
               ))}
               {weatherAlerts.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="px-4 py-4 text-center text-muted-foreground">
-                    Aucune alerte météorologique disponible
+                  <td
+                    colSpan={6}
+                    className="px-4 py-4 text-center text-muted-foreground"
+                  >
+                    No weather alert available
                   </td>
                 </tr>
               )}
@@ -512,8 +582,12 @@ const Dashboard = () => {
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold">Monthly Revenue</h3>
             <div className="flex space-x-2">
-              <button className="text-xs px-3 py-1.5 bg-muted rounded-md text-foreground">2023</button>
-              <button className="text-xs px-3 py-1.5 text-muted-foreground hover:bg-muted rounded-md">2022</button>
+              <button className="text-xs px-3 py-1.5 bg-muted rounded-md text-foreground">
+                2023
+              </button>
+              <button className="text-xs px-3 py-1.5 text-muted-foreground hover:bg-muted rounded-md">
+                2022
+              </button>
             </div>
           </div>
           <div className="h-80">
@@ -524,21 +598,29 @@ const Dashboard = () => {
               >
                 <defs>
                   <linearGradient id="colorRevenue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#4CAF50" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#4CAF50" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="#4CAF50" stopOpacity={0.8} />
+                    <stop offset="95%" stopColor="#4CAF50" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f5f5f5" />
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  vertical={false}
+                  stroke="#f5f5f5"
+                />
                 <XAxis dataKey="month" axisLine={false} tickLine={false} />
-                <YAxis axisLine={false} tickLine={false} tickFormatter={(value) => `${value} €`} />
-                <Tooltip formatter={(value) => [`${value} €`, 'Revenu']} />
-                <Area 
-                  type="monotone" 
-                  dataKey="revenue" 
-                  stroke="#4CAF50" 
-                  fillOpacity={1} 
-                  fill="url(#colorRevenue)" 
-                  activeDot={{ r: 8 }} 
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tickFormatter={(value) => `${value} €`}
+                />
+                <Tooltip formatter={(value) => [`${value} €`, "Revenu"]} />
+                <Area
+                  type="monotone"
+                  dataKey="revenue"
+                  stroke="#4CAF50"
+                  fillOpacity={1}
+                  fill="url(#colorRevenue)"
+                  activeDot={{ r: 8 }}
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -547,7 +629,7 @@ const Dashboard = () => {
 
         {/* Production Distribution - Adapté aux cultures guadeloupéennes */}
         <div className="dashboard-card card-hover">
-          <h3 className="font-semibold mb-4">Répartition des Cultures</h3>
+          <h3 className="font-semibold mb-4">Crop Distribution</h3>
           <div className="h-80">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart
@@ -555,20 +637,24 @@ const Dashboard = () => {
                 layout="vertical"
                 margin={{ top: 20, right: 30, left: 40, bottom: 5 }}
               >
-                <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} />
-                <XAxis type="number" axisLine={false} tickLine={false} />
-                <YAxis 
-                  dataKey="name" 
-                  type="category" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  width={80} 
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  horizontal={true}
+                  vertical={false}
                 />
-                <Tooltip formatter={(value) => [`${value}%`, 'Pourcentage']} />
-                <Bar 
-                  dataKey="value" 
-                  fill="#8D6E63" 
-                  radius={[0, 4, 4, 0]} 
+                <XAxis type="number" axisLine={false} tickLine={false} />
+                <YAxis
+                  dataKey="name"
+                  type="category"
+                  axisLine={false}
+                  tickLine={false}
+                  width={80}
+                />
+                <Tooltip formatter={(value) => [`${value}%`, "Pourcentage"]} />
+                <Bar
+                  dataKey="value"
+                  fill="#8D6E63"
+                  radius={[0, 4, 4, 0]}
                   barSize={20}
                 />
               </BarChart>
@@ -583,22 +669,24 @@ const Dashboard = () => {
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold">Upcoming Tasks</h3>
-            <button className="text-xs text-agri-primary hover:underline">View all</button>
+            <button className="text-xs text-agri-primary hover:underline">
+              View all
+            </button>
           </div>
-          
+
           <div className="space-y-3">
             {upcomingTasks.map((task) => (
-              <div 
-                key={task.id} 
+              <div
+                key={task.id}
                 className="flex items-center p-2 rounded-lg hover:bg-muted"
               >
-                <div 
+                <div
                   className={`w-2 h-2 rounded-full mr-3 ${
-                    task.priority === 'high' 
-                      ? 'bg-agri-danger' 
-                      : task.priority === 'medium' 
-                        ? 'bg-agri-warning' 
-                        : 'bg-agri-success'
+                    task.priority === "high"
+                      ? "bg-agri-danger"
+                      : task.priority === "medium"
+                      ? "bg-agri-warning"
+                      : "bg-agri-success"
                   }`}
                 />
                 <div className="flex-1">
@@ -611,13 +699,13 @@ const Dashboard = () => {
                         className="border rounded px-2 py-1 text-sm w-full"
                         autoFocus
                       />
-                      <button 
+                      <button
                         onClick={() => handleSaveTask(task.id)}
                         className="ml-2 p-1 text-green-600 hover:bg-green-50 rounded"
                       >
                         <Check className="h-4 w-4" />
                       </button>
-                      <button 
+                      <button
                         onClick={() => setEditingTask(null)}
                         className="ml-1 p-1 text-red-600 hover:bg-red-50 rounded"
                       >
@@ -627,21 +715,23 @@ const Dashboard = () => {
                   ) : (
                     <>
                       <p className="text-sm font-medium">{task.title}</p>
-                      <p className="text-xs text-muted-foreground">Échéance: {task.due}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Échéance: {task.due}
+                      </p>
                     </>
                   )}
                 </div>
                 <div className="flex">
                   {editingTask !== task.id && (
                     <>
-                      <button 
-                        className="p-1.5 hover:bg-muted rounded" 
+                      <button
+                        className="p-1.5 hover:bg-muted rounded"
                         onClick={() => handleEditTask(task.id)}
                       >
                         <Edit className="h-4 w-4 text-muted-foreground" />
                       </button>
-                      <button 
-                        className="p-1.5 hover:bg-muted rounded text-red-500" 
+                      <button
+                        className="p-1.5 hover:bg-muted rounded text-red-500"
                         onClick={() => handleDeleteTask(task.id)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -652,46 +742,54 @@ const Dashboard = () => {
               </div>
             ))}
             {upcomingTasks.length === 0 && (
-              <p className="text-center text-muted-foreground py-4">Aucune tâche à venir</p>
+              <p className="text-center text-muted-foreground py-4">
+                No upcoming tasks
+              </p>
             )}
           </div>
         </div>
-        
+
         {/* Alerts - Adapté à l'agriculture en Guadeloupe */}
         <div className="dashboard-card card-hover">
           <div className="flex justify-between items-center mb-4">
             <h3 className="font-semibold">Alerts</h3>
-            <button className="text-xs text-agri-primary hover:underline">Manage alerts</button>
+            <button className="text-xs text-agri-primary hover:underline">
+              Manage alerts
+            </button>
           </div>
-          
+
           <div className="space-y-3">
             {alerts.map((alert) => (
-              <div 
-                key={alert.id} 
+              <div
+                key={alert.id}
                 className={`p-3 rounded-lg ${
-                  alert.type === 'danger' 
-                    ? 'bg-agri-danger/10 border-l-4 border-agri-danger' 
-                    : alert.type === 'warning' 
-                      ? 'bg-agri-warning/10 border-l-4 border-agri-warning' 
-                      : 'bg-agri-info/10 border-l-4 border-agri-info'
+                  alert.type === "danger"
+                    ? "bg-agri-danger/10 border-l-4 border-agri-danger"
+                    : alert.type === "warning"
+                    ? "bg-agri-warning/10 border-l-4 border-agri-warning"
+                    : "bg-agri-info/10 border-l-4 border-agri-info"
                 }`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start flex-1">
-                    <AlertTriangle className={`h-5 w-5 mr-2 ${
-                      alert.type === 'danger' 
-                        ? 'text-agri-danger' 
-                        : alert.type === 'warning' 
-                          ? 'text-agri-warning' 
-                          : 'text-agri-info'
-                    }`} />
-                    <EditableField 
-                      value={alert.message} 
-                      onSave={(value) => handleEditAlert(alert.id, String(value))}
+                    <AlertTriangle
+                      className={`h-5 w-5 mr-2 ${
+                        alert.type === "danger"
+                          ? "text-agri-danger"
+                          : alert.type === "warning"
+                          ? "text-agri-warning"
+                          : "text-agri-info"
+                      }`}
+                    />
+                    <EditableField
+                      value={alert.message}
+                      onSave={(value) =>
+                        handleEditAlert(alert.id, String(value))
+                      }
                       className="text-sm"
                     />
                   </div>
-                  <button 
+                  <button
                     onClick={() => handleDeleteAlert(alert.id)}
                     className="text-red-500 hover:text-red-700 p-1 rounded hover:bg-red-50"
                   >
@@ -701,7 +799,9 @@ const Dashboard = () => {
               </div>
             ))}
             {alerts.length === 0 && (
-              <p className="text-center text-muted-foreground py-4">Aucune alerte active</p>
+              <p className="text-center text-muted-foreground py-4">
+                No upcoming tasks
+              </p>
             )}
           </div>
         </div>
@@ -721,63 +821,73 @@ const Dashboard = () => {
               <select
                 id="alertType"
                 value={newAlert.type}
-                onChange={(e) => setNewAlert({...newAlert, type: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, type: e.target.value })
+                }
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
-                <option value="Cyclone">Cyclone</option>
-                <option value="Pluie">Pluie</option>
-                <option value="Sécheresse">Sécheresse</option>
-                <option value="Vent">Vent</option>
+                <option value="Cyclone">Flood</option>
+                <option value="Pluie">Rain</option>
+                <option value="Sécheresse">Drought</option>
+                <option value="Vent">wind</option>
               </select>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="region" className="text-right">
-                Région
+                Region
               </Label>
               <Input
                 id="region"
                 value={newAlert.region}
-                onChange={(e) => setNewAlert({...newAlert, region: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, region: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="startDate" className="text-right">
-                Date de début
+                Start Date
               </Label>
               <Input
                 id="startDate"
                 type="date"
                 value={newAlert.startDate}
-                onChange={(e) => setNewAlert({...newAlert, startDate: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, startDate: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="endDate" className="text-right">
-                Date de fin
+                End Date
               </Label>
               <Input
                 id="endDate"
                 type="date"
                 value={newAlert.endDate}
-                onChange={(e) => setNewAlert({...newAlert, endDate: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, endDate: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="severity" className="text-right">
-                Sévérité
+                Severity
               </Label>
               <select
                 id="severity"
                 value={newAlert.severity}
-                onChange={(e) => setNewAlert({...newAlert, severity: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, severity: e.target.value })
+                }
                 className="col-span-3 flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               >
-                <option value="faible">Faible</option>
-                <option value="modérée">Modérée</option>
-                <option value="critique">Critique</option>
+                <option value="faible">Low</option>
+                <option value="modérée">Moderate</option>
+                <option value="critique">Severe</option>
               </select>
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
@@ -787,14 +897,21 @@ const Dashboard = () => {
               <Input
                 id="description"
                 value={newAlert.description}
-                onChange={(e) => setNewAlert({...newAlert, description: e.target.value})}
+                onChange={(e) =>
+                  setNewAlert({ ...newAlert, description: e.target.value })
+                }
                 className="col-span-3"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowAddAlertDialog(false)}>Annuler</Button>
-            <Button onClick={handleAddWeatherAlert}>Ajouter</Button>
+            <Button
+              variant="outline"
+              onClick={() => setShowAddAlertDialog(false)}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleAddWeatherAlert}>Add</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

@@ -82,7 +82,7 @@ const StatCards: React.FC<StatCardsProps> = ({
                   type="number"
                   onSave={handleParcelsCountChange}
                   className="inline-block"
-                /> parcelles
+                /> parcel
               </span>
             </div>
           </div>
