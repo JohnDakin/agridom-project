@@ -794,7 +794,7 @@ const CropPlanning = () => {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold">Ajouter une tâche</h2>
+              <h2 className="text-xl font-semibold">Add a task</h2>
               <button
                 onClick={() => setShowTaskForm(false)}
                 className="p-1 hover:bg-muted rounded-full"
@@ -805,7 +805,7 @@ const CropPlanning = () => {
 
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Titre</label>
+                <label className="block text-sm font-medium mb-1">Title</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-input rounded-md"
@@ -828,7 +828,7 @@ const CropPlanning = () => {
                     setNewTask({ ...newTask, cropId: Number(e.target.value) })
                   }
                 >
-                  <option value="">Sélectionner une culture</option>
+                  <option value="">Select a crop</option>
                   {cropsData.map((crop) => (
                     <option key={crop.id} value={crop.id}>
                       {crop.name} - {crop.parcel}
@@ -851,7 +851,7 @@ const CropPlanning = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Priorité
+                  Priority
                 </label>
                 <select
                   className="w-full px-3 py-2 border border-input rounded-md"
@@ -863,9 +863,9 @@ const CropPlanning = () => {
                     })
                   }
                 >
-                  <option value="low">Basse</option>
-                  <option value="medium">Moyenne</option>
-                  <option value="high">Haute</option>
+                  <option value="low">Low</option>
+                  <option value="medium">Average</option>
+                  <option value="high">High</option>
                 </select>
               </div>
 
@@ -916,7 +916,7 @@ const CropPlanning = () => {
 
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Nom*</label>
+                <label className="block text-sm font-medium mb-1">Name</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-input rounded-md"
@@ -935,7 +935,7 @@ const CropPlanning = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Variété
+                  Variety
                 </label>
                 <input
                   type="text"
@@ -956,9 +956,7 @@ const CropPlanning = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-1">
-                  Parcelle*
-                </label>
+                <label className="block text-sm font-medium mb-1">Parcel</label>
                 <input
                   type="text"
                   className="w-full px-3 py-2 border border-input rounded-md"
@@ -981,7 +979,7 @@ const CropPlanning = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Date de plantation
+                    Planting date
                   </label>
                   <input
                     type="date"
@@ -1009,7 +1007,7 @@ const CropPlanning = () => {
 
                 <div>
                   <label className="block text-sm font-medium mb-1">
-                    Date de récolte
+                    Harvest date
                   </label>
                   <input
                     type="date"
@@ -1035,7 +1033,7 @@ const CropPlanning = () => {
 
               <div>
                 <label className="block text-sm font-medium mb-1">
-                  Superficie (ha)
+                  Surface area (ha)
                 </label>
                 <input
                   type="number"
@@ -1078,9 +1076,9 @@ const CropPlanning = () => {
                     }
                   }}
                 >
-                  <option value="planned">Planté</option>
-                  <option value="growing">En croissance</option>
-                  <option value="harvested">Récolté</option>
+                  <option value="planned">Planted</option>
+                  <option value="growing">Growing</option>
+                  <option value="harvested">Harvested</option>
                 </select>
               </div>
 
@@ -1090,7 +1088,7 @@ const CropPlanning = () => {
                   onClick={() => setShowCropForm(false)}
                   className="px-4 py-2 text-sm text-foreground bg-muted rounded-md hover:bg-muted/80"
                 >
-                  Annuler
+                  Cancel
                 </button>
                 <button
                   type="button"
